@@ -1,0 +1,3 @@
+<p>landing-home works!</p>
+<div *ngIf="afAuth.user | async as user">{{ user | json }}</div>
+<button (click)="afAuth.signOut()">Log Out</button>

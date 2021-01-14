@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "jammin-ui": {
+      "hosting": {
+        "JammIn": [
+          "jammin-ui"
+        ]
+      }
+    }
+  }
+}

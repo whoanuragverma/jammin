@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class InviteComponent implements OnInit {
   public user: any;
   public currentYear: number = new Date().getFullYear();
-  constructor(private afAuth: AngularFireAuth, public router: Router) {}
+  constructor(private afAuth: AngularFireAuth) {}
 
   async ngOnInit(): Promise<void> {
     this.user = await this.afAuth.currentUser;

@@ -6,7 +6,7 @@
     />
     <span class="bold-text">JammIn</span>
     <span class="normal-text small">JammIn in currently invite only</span>
-    <button (click)="this.router.navigate(['login'])">Back to Login</button>
+    <button [routerLink]="'login'">Back to Login</button>
     <span class="normal-text"
       >Sorry, {{ user.displayName }} JammIn is currently in invite only mode and
       we can't find you in the invitees. Don't worry we have your email address

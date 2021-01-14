@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class LoginLandingComponent implements OnInit {
   constructor(private afAuth: AngularFireAuth, private router: Router) {}
-
+  public currentYear: number = new Date().getFullYear();
   ngOnInit(): void {
     this.afAuth.authState.subscribe((user) => {
       if (user) this.router.navigate(['']);

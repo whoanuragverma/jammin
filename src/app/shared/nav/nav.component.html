@@ -1,0 +1,23 @@
+<nav>
+  <div class="icon">
+    <img src="../../../assets/icons/ms-icon-144x144.png" />
+    <span class="text-bold">JammIn</span>
+  </div>
+  <!-- Home Component for mobile -->
+  <div class="search">
+    <input
+      type="search"
+      placeholder="Search for Artists, Songs, Albums, or Podcasts"
+    />
+    <!--
+      Search
+      Icon
+      for
+      mobile
+      -->
+  </div>
+  <div class="account">
+    {{ data.displayName }}
+    <img [src]="data.photoURL" />
+  </div>
+</nav>

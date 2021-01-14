@@ -1,0 +1,39 @@
+nav {
+  padding: 0.5rem 0.9rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 99;
+  position: fixed;
+  top: 0;
+  box-sizing: border-box;
+  @media (max-width: 768px) {
+    bottom: 0;
+    top: auto;
+  }
+}
+div.icon {
+  display: flex;
+  align-items: center;
+  img {
+    width: 36px;
+    margin-right: 0.5rem;
+  }
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+.text-bold {
+  font-weight: 500;
+  font-size: 1.3rem;
+}
+div.account {
+  display: flex;
+  align-items: center;
+  img {
+    width: 32px;
+    margin-left: 0.5rem;
+    border-radius: 50%;
+  }
+}

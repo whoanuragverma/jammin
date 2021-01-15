@@ -19,6 +19,7 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
         style({
           maxHeight: '25vh',
           opacity: 1,
+          'pointer-events': 'auto',
         })
       ),
       state(
@@ -26,6 +27,7 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
         style({
           opacity: 0,
           maxHeight: '0px',
+          'pointer-events': 'none',
         })
       ),
       transition('* => *', [animate('0.25s ease-in-out')]),

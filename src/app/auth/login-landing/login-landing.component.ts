@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
   selector: 'login-landing',
   templateUrl: './login-landing.component.html',
   styleUrls: ['./login-landing.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class LoginLandingComponent implements OnInit {
   constructor(private afAuth: AngularFireAuth, private router: Router) {}

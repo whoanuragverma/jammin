@@ -1,0 +1,8 @@
+<div class="dd" [@openClose]="isOpen ? 'open' : 'closed'">
+  <div *ngFor="let item of items">
+    <li [routerLink]="[item]" *ngIf="item !== 'log out'">
+      {{ item | titlecase }}
+    </li>
+    <li appSignOut *ngIf="item === 'log out'" class="last">Log Out</li>
+  </div>
+</div>

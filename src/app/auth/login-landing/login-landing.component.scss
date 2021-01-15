@@ -59,5 +59,21 @@ button {
   font-weight: 500;
   outline: none;
   cursor: pointer;
+  border-radius: 5px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+img.logo {
+  width: 50px;
+}
+body.dark {
+  img.logo {
+    filter: invert(1);
+  }
+  span.normal-text {
+    color: #ebebeb;
+  }
+  button {
+    background-color: #454545;
+    color: #ffffff;
+  }
 }

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'invite',
   templateUrl: './invite.component.html',
   styleUrls: ['./invite.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class InviteComponent implements OnInit {
   public user: any;

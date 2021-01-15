@@ -1,12 +1,13 @@
 <nav>
   <div class="icon">
-    <img src="../../../assets/icons/ms-icon-144x144.png" />
+    <img src="../../../assets/icons/ms-icon-144x144.png" class="logo" />
     <span class="text-bold">JammIn</span>
   </div>
   <!-- Home Component for mobile -->
-  <div class="search">
+  <div class="search" [routerLink]="['search']">
     <input
-      type="search"
+      type="text"
+      class="main__search"
       placeholder="Search for Artists, Songs, Albums, or Podcasts"
     />
     <!--
@@ -16,8 +17,14 @@
       mobile
       -->
   </div>
-  <div class="account">
-    {{ data.displayName }}
+  <div class="account" (click)="toggle()">
     <img [src]="data.photoURL" />
+    {{ data.displayName }}
+    <img
+      src="../../../assets/down.svg"
+      class="dropdown-icon"
+      [@rotate]="!isOpen ? 'down' : 'up'"
+    />
+    <dropdown [isOpen]="isOpen" [items]="items"></dropdown>
   </div>
 </nav>

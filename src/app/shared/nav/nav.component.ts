@@ -12,6 +12,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-nav',
@@ -37,11 +38,13 @@ import {
   ],
 })
 export class NavComponent implements OnInit {
-  @Input() data: any;
+  public data: any;
+  constructor(private afAuth: AngularFireAuth) {}
   public items: any = ['account', 'profile', 'log out'];
-  constructor() {}
   public isOpen: boolean = false;
-  ngOnInit(): void {}
+  async ngOnInit(): Promise<void> {
+    this.data = await this.afAuth.currentUser;
+  }
   toggle() {
     this.isOpen = !this.isOpen;
   }

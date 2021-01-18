@@ -3,22 +3,15 @@
     <img src="../../../assets/icons/ms-icon-144x144.png" class="logo" />
     <span class="text-bold">JammIn</span>
   </div>
-  <!-- Home Component for mobile -->
-  <div class="search" [routerLink]="['search']">
+  <div class="search" [routerLink]="['/search']">
     <input
       type="text"
       class="main__search"
       placeholder="Search for Artists, Songs, Albums, or Podcasts"
     />
-    <!--
-      Search
-      Icon
-      for
-      mobile
-      -->
   </div>
   <div class="account" (click)="toggle()">
-    <img [src]="data.photoURL" />
+    <img [src]="data.photoURL" [alt]="data.displayName" />
     {{ data.displayName }}
     <img
       src="../../../assets/down.svg"
@@ -26,5 +19,105 @@
       [@rotate]="!isOpen ? 'down' : 'up'"
     />
     <dropdown [isOpen]="isOpen" [items]="items"></dropdown>
+  </div>
+  <div class="mobile">
+    <div
+      [routerLink]="['/']"
+      [routerLinkActive]="['hide-svg', 'text-bold']"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="21"
+        height="21"
+        fill="currentColor"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"
+        />
+      </svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="21"
+        height="21"
+        fill="currentColor"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"
+        />
+      </svg>
+      Home
+    </div>
+    <div
+      [routerLink]="['/search']"
+      [routerLinkActive]="['hide-svg', 'text-bold']"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        width="22"
+        height="22"
+        stroke="currentColor"
+        stroke-width="1.5"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="css-i6dzq1"
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <svg
+        viewBox="0 0 24 24"
+        width="22"
+        height="22"
+        stroke="currentColor"
+        stroke-width="2"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="css-i6dzq1"
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+
+      Search
+    </div>
+    <div
+      [routerLink]="['/library']"
+      [routerLinkActive]="['hide-svg', 'text-bold']"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="21"
+        height="21"
+        fill="currentColor"
+        class="bi bi-collection"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-13z"
+        />
+      </svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="21"
+        height="21"
+        fill="currentColor"
+        class="bi bi-collection-fill"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3zm2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1z"
+        />
+      </svg>
+      Library
+    </div>
+    <div [routerLink]="['/account']" [routerLinkActive]="['text-bold']">
+      <img [src]="data.photoURL" [alt]="data.displayName" />
+      Account
+    </div>
   </div>
 </nav>

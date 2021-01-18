@@ -11,6 +11,9 @@ nav {
   @media (max-width: 768px) {
     bottom: 0;
     top: auto;
+    background: #ffffff;
+    min-height: 4rem;
+    max-height: 4rem;
   }
 }
 .search {
@@ -23,6 +26,9 @@ nav {
     background-repeat: no-repeat;
     top: 19px;
     left: -24px;
+  }
+  @media (max-width: 768px) {
+    display: none;
   }
 }
 .main__search {
@@ -57,6 +63,9 @@ div.account {
   padding: 0.3rem;
   border-radius: 30px;
   font-weight: 500;
+  @media (max-width: 768px) {
+    display: none;
+  }
   font-size: 0.8rem;
   img {
     width: 24px;
@@ -69,6 +78,11 @@ img.dropdown-icon {
   margin-left: 0.4rem;
 }
 body.dark {
+  nav {
+    @media (max-width: 768px) {
+      background-color: #333333;
+    }
+  }
   .search {
     &::after {
       filter: invert(0.93);
@@ -95,5 +109,44 @@ body.light {
   .main__search {
     background: #e5e7ea;
     color: #333333;
+  }
+}
+div.mobile {
+  @media (min-width: 768px) {
+    display: none;
+  }
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    outline: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    img {
+      width: 21px;
+      border-radius: 50%;
+    }
+    svg {
+      &:first-of-type {
+        display: block;
+      }
+      &:last-of-type {
+        display: none;
+      }
+    }
+    &.hide-svg {
+      svg {
+        &:first-of-type {
+          display: none;
+        }
+        &:last-of-type {
+          display: block;
+        }
+      }
+    }
   }
 }

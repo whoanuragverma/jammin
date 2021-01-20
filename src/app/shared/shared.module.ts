@@ -4,10 +4,16 @@ import { NavComponent } from './nav/nav.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { RouterModule } from '@angular/router';
 import { SignOutDirective } from './sign-out.directive';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 @NgModule({
-  declarations: [NavComponent, DropdownComponent, SignOutDirective],
-  exports: [NavComponent],
+  declarations: [
+    NavComponent,
+    DropdownComponent,
+    SignOutDirective,
+    SidenavComponent,
+  ],
+  exports: [NavComponent, SidenavComponent],
   imports: [CommonModule, RouterModule],
 })
 export class SharedModule {}

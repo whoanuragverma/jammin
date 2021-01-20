@@ -125,10 +125,18 @@ div.mobile {
     align-items: center;
     outline: none;
     cursor: pointer;
-    font-size: 0.9rem;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.2s;
+    font-size: 0.7rem;
+    &:hover {
+      transform: scale(0.9);
+    }
     img {
       width: 21px;
       border-radius: 50%;
+    }
+    svg,
+    img {
+      padding: 0.2rem;
     }
     svg {
       &:first-of-type {

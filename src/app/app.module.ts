@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment.prod';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { SharedModule } from './shared/shared.module';
 @NgModule({
@@ -17,6 +18,7 @@ import { SharedModule } from './shared/shared.module';
     AuthModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    AngularFirestoreModule.enablePersistence(),
     SharedModule,
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {

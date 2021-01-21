@@ -10,7 +10,9 @@ import { map } from 'rxjs/operators';
 export class SidenavComponent implements OnInit {
   constructor(public db: DatabseService) {}
   public myPlaylist: any;
+  public uid: any;
   async ngOnInit() {
+    this.uid = await this.db.getUser();
     this.myPlaylist = (await this.db.getPlaylist()).pipe(
       map((actions) =>
         actions.map((a) => {

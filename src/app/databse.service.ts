@@ -30,6 +30,9 @@ export class DatabseService {
       .collection('playlist')
       .snapshotChanges();
   }
+  async getUser() {
+    return (await this.afAuth.currentUser).uid;
+  }
   async createPlaylist() {
     const uid = (await this.afAuth.currentUser).uid;
     return this.db

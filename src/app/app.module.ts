@@ -10,6 +10,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { SharedModule } from './shared/shared.module';
+import { CommonModule } from '@angular/common';
+import { ComponentsModule } from './components/components.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -20,6 +22,8 @@ import { SharedModule } from './shared/shared.module';
     AngularFireAuthModule,
     AngularFirestoreModule.enablePersistence(),
     SharedModule,
+    CommonModule,
+    ComponentsModule,
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,

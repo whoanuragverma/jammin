@@ -1,9 +1,20 @@
+div.mainContent-LeftPad {
+  position: absolute;
+  left: 230px;
+  width: calc(100% - 230px);
+  height: calc(100% - 130px);
+  overflow: auto;
+  @media (max-width: 768px) {
+    position: initial;
+    width: 100%;
+  }
+}
 div.sidenav {
   @media (max-width: 768px) {
     display: none;
   }
   div.userPlaylist {
-    height: 8rem;
+    height: 9.15rem;
     overflow: auto;
     margin: 0.4rem;
     font-size: 0.9rem;

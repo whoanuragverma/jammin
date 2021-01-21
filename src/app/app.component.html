@@ -1,1 +1,13 @@
-<router-outlet></router-outlet>
+<ng-container *ngIf="isLoginPage; else HomePage">
+  <ng-container *ngTemplateOutlet="router"></ng-container>
+</ng-container>
+<ng-template #HomePage>
+  <app-nav></app-nav>
+  <div class="shift-content-down"></div>
+  <app-sidenav
+    ><ng-container *ngTemplateOutlet="router"></ng-container
+  ></app-sidenav>
+</ng-template>
+<ng-template #router>
+  <router-outlet></router-outlet>
+</ng-template>

@@ -7,7 +7,13 @@
   <app-sidenav
     ><ng-container *ngTemplateOutlet="router"></ng-container
   ></app-sidenav>
-  <app-player></app-player>
+  <app-player
+    url="https://cdn.jammin.workers.dev/c/372/Starboy-English-2016-"
+    media="http://cdn.jammin.workers.dev/aac/372/38de816bee7a6df4607f1f0e6822c5bc_160.mp4"
+    title="Starboy"
+    album="Starboy"
+    artist="[{'name':'The Weekend','src':'FJRb7GbYWrQ_'}]"
+  ></app-player>
 </ng-template>
 <ng-template #router>
   <router-outlet></router-outlet>

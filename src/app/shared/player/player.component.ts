@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 
 @Component({
   selector: 'app-player',
@@ -15,8 +21,16 @@ export class PlayerComponent implements OnInit {
   public duration: number = 0;
   public current: number = 0;
   public playerProgress: string = '0%';
+  private icons: Array<any> = [];
   @ViewChild('source') source;
-  constructor() {}
+  @Input() url: string;
+  @Input() media: string;
+  @Input() title: string;
+  @Input() artist: string;
+  @Input() album: string;
+  constructor() {
+    this.convertToPNG = this.convertToPNG.bind(this);
+  }
   shuffle() {
     this.isShuffle = !this.isShuffle;
   }
@@ -28,6 +42,40 @@ export class PlayerComponent implements OnInit {
     this.isPlaying ? elem.pause() : elem.play();
     this.isPlaying = !this.isPlaying;
   }
+  convertToPNG(url: string) {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.src = url;
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+      canvas.toBlob(
+        (blob) => {
+          this.icons.push({
+            src: window.URL.createObjectURL(blob),
+            sizes: url.split('-').splice(-1)[0].split('.jpg')[0],
+            type: 'image/png',
+          });
+          if (this.icons.length == 3)
+            if ('mediaSession' in navigator) {
+              //@ts-ignore
+              navigator.mediaSession.metadata = new MediaMetaData$({
+                title: this.title,
+                artist: (this.artist[0] as any).name,
+                album: this.album,
+                artwork: this.icons,
+              });
+            }
+        },
+        'image/png',
+        1
+      );
+    };
+  }
+
   dragEvent(event) {
     const { left } = event.target.getBoundingClientRect();
     const width = document.querySelector('.progress').clientWidth;
@@ -36,36 +84,14 @@ export class PlayerComponent implements OnInit {
     this.source.nativeElement.currentTime =
       (x / width) * this.source.nativeElement.duration;
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.artist = eval(this.artist);
+    const size = ['50x50.jpg', '150x150.jpg', '500x500.jpg'];
+    size.forEach((s) =>
+      this.convertToPNG(`${this.url}${s}?q=${Math.random()}`)
+    );
+  }
   ngAfterViewInit() {
-    if ('mediaSession' in navigator) {
-      //@ts-ignore
-      navigator.mediaSession.metadata = new MediaMetaData$({
-        title: 'Yummy',
-        artist: 'Justin Beiber',
-        album: 'Changes',
-        artwork: [
-          {
-            src:
-              'https://cdn.jammin.workers.dev/c/522/Yummy-English-2020-20200103035142-50x50.jpg',
-            sizes: '500x500',
-            type: 'image/jpg',
-          },
-          {
-            src:
-              'https://cdn.jammin.workers.dev/c/522/Yummy-English-2020-20200103035142-150x150.jpg',
-            sizes: '150x150',
-            type: 'image/jpg',
-          },
-          {
-            src:
-              'https://cdn.jammin.workers.dev/c/522/Yummy-English-2020-20200103035142-500x500.jpg',
-            sizes: '500x500',
-            type: 'image/jpg',
-          },
-        ],
-      });
-    }
     this.source.nativeElement.addEventListener('loadedmetadata', () => {
       this.duration = this.source.nativeElement.duration;
     });

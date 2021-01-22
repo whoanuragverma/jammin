@@ -1,13 +1,15 @@
 <div class="playerMain">
   <div class="nowPlaying">
-    <img
-      src="https://cdn.jammin.workers.dev/c/522/Yummy-English-2020-20200103035142-50x50.jpg"
-      alt="Yummy - Justin Bieber"
-    />
+    <img [src]="url + '50x50.jpg'" alt="Yummy - Justin Bieber" />
     <span class="title">
-      <span class="name">Yummy</span>
+      <span class="name">{{ title }}</span>
       <span class="artist">
-        <span [routerLink]="['artist', '_495jdsf']">Justin Beiber</span>
+        <span
+          *ngFor="let art of artist"
+          [routerLink]="['artist', art.src]"
+          class="comma"
+          >{{ art.name }}</span
+        >
       </span>
     </span>
     <span class="like">
@@ -183,11 +185,7 @@
           [style.left]="playerProgress"
           draggable="true"
         ></span>
-        <audio
-          #source
-          src="https://cdn.jammin.workers.dev/aac/522/91418fe99e4edafa08a1a874fadf40a5_160.mp4"
-          preload="metadata"
-        ></audio>
+        <audio #source [src]="media" preload="metadata"></audio>
       </span>
       <span class="Etime">{{ duration | time }}</span>
     </span>

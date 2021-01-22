@@ -145,6 +145,9 @@ div.playerMain {
       .artist {
         font-weight: 400;
         font-size: 0.7rem;
+        .comma:not(:empty) ~ .comma:not(:empty):before {
+          content: ", ";
+        }
       }
     }
     img {

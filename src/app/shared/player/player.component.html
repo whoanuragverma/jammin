@@ -1,0 +1,196 @@
+<div class="playerMain">
+  <div class="nowPlaying">
+    <img
+      src="https://cdn.jammin.workers.dev/c/522/Yummy-English-2020-20200103035142-50x50.jpg"
+      alt="Yummy - Justin Bieber"
+    />
+    <span class="title">
+      <span class="name">Yummy</span>
+      <span class="artist">
+        <span [routerLink]="['artist', '_495jdsf']">Justin Beiber</span>
+      </span>
+    </span>
+    <span class="like">
+      <input
+        type="checkbox"
+        class="checkbox"
+        [checked]="isLiked"
+        (change)="isLiked = !isLiked"
+        id="checkbox"
+      />
+      <label for="checkbox">
+        <svg
+          id="heart-svg"
+          viewBox="467 392 58 57"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g
+            id="Group"
+            fill="none"
+            fill-rule="evenodd"
+            transform="translate(467 392)"
+          >
+            <path
+              d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z"
+              id="heart"
+              fill="#AAB8C2"
+            />
+            <circle
+              id="main-circ"
+              fill="#E2264D"
+              opacity="0"
+              cx="29.5"
+              cy="29.5"
+              r="1.5"
+            />
+
+            <g id="grp7" opacity="0" transform="translate(7 6)">
+              <circle id="oval1" fill="#9CD8C3" cx="2" cy="6" r="2" />
+              <circle id="oval2" fill="#8CE8C3" cx="5" cy="2" r="2" />
+            </g>
+
+            <g id="grp6" opacity="0" transform="translate(0 28)">
+              <circle id="oval1" fill="#CC8EF5" cx="2" cy="7" r="2" />
+              <circle id="oval2" fill="#91D2FA" cx="3" cy="2" r="2" />
+            </g>
+
+            <g id="grp3" opacity="0" transform="translate(52 28)">
+              <circle id="oval2" fill="#9CD8C3" cx="2" cy="7" r="2" />
+              <circle id="oval1" fill="#8CE8C3" cx="4" cy="2" r="2" />
+            </g>
+
+            <g id="grp2" opacity="0" transform="translate(44 6)">
+              <circle id="oval2" fill="#CC8EF5" cx="5" cy="6" r="2" />
+              <circle id="oval1" fill="#CC8EF5" cx="2" cy="2" r="2" />
+            </g>
+
+            <g id="grp5" opacity="0" transform="translate(14 50)">
+              <circle id="oval1" fill="#91D2FA" cx="6" cy="5" r="2" />
+              <circle id="oval2" fill="#91D2FA" cx="2" cy="2" r="2" />
+            </g>
+
+            <g id="grp4" opacity="0" transform="translate(35 50)">
+              <circle id="oval1" fill="#F48EA7" cx="6" cy="5" r="2" />
+              <circle id="oval2" fill="#F48EA7" cx="2" cy="2" r="2" />
+            </g>
+
+            <g id="grp1" opacity="0" transform="translate(24)">
+              <circle id="oval1" fill="#9FC7FA" cx="2.5" cy="3" r="2" />
+              <circle id="oval2" fill="#9FC7FA" cx="7.5" cy="2" r="2" />
+            </g>
+          </g>
+        </svg>
+      </label>
+    </span>
+  </div>
+  <div class="controls">
+    <span class="buttons">
+      <span [class.active]="isShuffle" (click)="shuffle()"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="14"
+          fill="currentColor"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5z"
+          />
+          <path
+            d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"
+          /></svg
+      ></span>
+      <span
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="11"
+          height="11"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path d="M4 2v20h-2v-20h2zm18 0l-16 10 16 10v-20z" /></svg
+      ></span>
+      <span (click)="playPause()" class="playPause">
+        <span class="loader" *ngIf="isBuffering"
+          ><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="45" /></svg></span
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          class="play-btn"
+          height="16"
+          fill="currentColor"
+          viewBox="0 0 16 16"
+          *ngIf="!isPlaying"
+        >
+          <path
+            d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"
+          />
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          class="play-btn"
+          *ngIf="isPlaying"
+          fill="currentColor"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"
+          /></svg
+      ></span>
+      <span
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="11"
+          fill="currentColor"
+          height="11"
+          viewBox="0 0 24 24"
+        >
+          <path d="M20 22v-20h2v20h-2zm-18 0l16-10-16-10v20z" /></svg
+      ></span>
+      <span [class.active]="isRepeat" (click)="repeat()"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="14"
+          fill="currentColor"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"
+          />
+          <path
+            fill-rule="evenodd"
+            d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"
+          /></svg
+      ></span>
+    </span>
+    <span class="timer">
+      <span class="Stime">{{ current | time }}</span>
+      <span
+        class="progress"
+        (dragover)="dragEvent($event)"
+        (drop)="dragEvent($event)"
+        (click)="dragEvent($event)"
+      >
+        <span class="progress_bar"></span>
+        <span class="progress_fill" [style.width]="playerProgress"></span>
+        <span
+          class="progress_dot"
+          [style.left]="playerProgress"
+          draggable="true"
+        ></span>
+        <audio
+          #source
+          src="https://cdn.jammin.workers.dev/aac/522/91418fe99e4edafa08a1a874fadf40a5_160.mp4"
+          preload="metadata"
+        ></audio>
+      </span>
+      <span class="Etime">{{ duration | time }}</span>
+    </span>
+  </div>
+  <div class="misc">CONTROLS</div>
+</div>

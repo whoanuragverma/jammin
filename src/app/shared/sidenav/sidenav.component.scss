@@ -1,7 +1,7 @@
 div.mainContent-LeftPad {
   position: absolute;
-  left: 230px;
-  width: calc(100% - 230px);
+  left: max(210px, 18%);
+  width: calc(100% - max(210px, 18%));
   height: calc(100% - 130px);
   overflow: auto;
   @media (max-width: 768px) {
@@ -81,7 +81,7 @@ div.sidenav {
   width: 15%;
   height: 100%;
   position: fixed;
-  max-width: 250px;
+  // max-width: 250px;
   min-width: 200px;
   padding-top: 0.8rem;
   .main-section {

@@ -1,0 +1,486 @@
+div.playerMain {
+  position: absolute;
+  bottom: 0px;
+  margin: 0.4rem;
+  width: 99%;
+  height: 4rem;
+  padding: 0.3rem;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-radius: 0.6rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @media (max-width: 768px) {
+    bottom: 4rem;
+    box-shadow: none;
+    border-radius: 0;
+    margin: 0;
+    border-bottom: 2px solid #f1f3f6;
+    width: 100%;
+  }
+  .controls {
+    @media (max-width: 768px) {
+      display: none !important;
+    }
+    transform: translateX(-10%);
+    display: flex;
+    width: 40%;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: #a9a9ab;
+    .timer {
+      font-size: 0.6rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      span {
+        margin: 0 0.3rem;
+        &.progress {
+          width: 80%;
+          position: relative;
+          .progress_bar {
+            cursor: pointer;
+            background-color: #dfdfdf;
+            border-radius: 3px;
+            padding: 0.1rem;
+            width: 100%;
+            display: block;
+            &:hover ~ .progress_dot {
+              opacity: 1;
+            }
+            margin: 0.1rem;
+            box-sizing: border-box;
+          }
+          .progress_fill {
+            transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.4s;
+            position: absolute;
+            top: 0;
+            border-radius: 3px;
+            padding: 0.1rem;
+            width: 100%;
+            display: block;
+            &:hover ~ .progress_dot {
+              opacity: 1;
+            }
+            margin: 0.1rem;
+            background-color: #a9a9ab;
+            box-sizing: border-box;
+            cursor: pointer;
+          }
+          .progress_dot {
+            transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.4s;
+            width: 0.2rem;
+            cursor: pointer;
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+              0 1px 2px rgba(0, 0, 0, 0.24);
+            opacity: 0;
+            border-radius: 50%;
+            height: 0.2rem;
+            position: absolute;
+            top: 1px;
+            &:hover {
+              opacity: 1;
+            }
+            display: block;
+            left: 0px;
+            transform: scale(3.5);
+          }
+        }
+        .slider {
+          width: 100%;
+          height: 2px !important;
+        }
+      }
+    }
+    .buttons {
+      align-items: center;
+      span {
+        padding: 0 0.7rem;
+        cursor: pointer;
+        transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.2s;
+        &:active {
+          transform: scale(0.9);
+          filter: invert(0.3);
+        }
+      }
+      .play-btn {
+        padding: 0.5rem;
+        color: #000000;
+        border-radius: 50%;
+        background-color: #dfdfdf;
+      }
+      span:hover:not(:first-of-type):not(:last-of-type) {
+        color: #000000;
+      }
+      .active {
+        color: #000000;
+      }
+      display: flex;
+      justify-content: center;
+    }
+  }
+  .misc {
+    padding-right: 0.6rem;
+  }
+  .nowPlaying {
+    padding: 0.4rem;
+    padding-left: 0.6rem;
+    display: flex;
+    @media (max-width: 768px) {
+      padding-left: 0.3rem;
+    }
+    justify-content: center;
+    align-items: center;
+    .title {
+      display: flex;
+      flex-direction: column;
+      .name {
+        font-size: 0.85rem;
+        font-weight: 500;
+      }
+      .artist {
+        font-weight: 400;
+        font-size: 0.7rem;
+      }
+    }
+    img {
+      margin-right: 0.4rem;
+      border-radius: 0.6rem;
+    }
+    svg {
+      margin-left: 1.5rem;
+      cursor: pointer;
+      overflow: visible;
+      width: 2.2rem;
+      margin-top: 0.15rem;
+    }
+
+    svg #heart {
+      transform-origin: center;
+      animation: animateHeartOut 0.3s linear forwards;
+    }
+
+    svg #main-circ {
+      transform-origin: 29.5px 29.5px;
+    }
+
+    .checkbox {
+      display: none;
+    }
+
+    .checkbox:checked + label svg #heart {
+      transform: scale(0.2);
+      fill: #e2264d;
+      animation: animateHeart 0.3s linear forwards 0.25s;
+    }
+
+    .checkbox:checked + label svg #main-circ {
+      transition: all 2s;
+      animation: animateCircle 0.3s linear forwards;
+      opacity: 1;
+    }
+
+    .checkbox:checked + label svg #grp1 {
+      opacity: 1;
+      transition: 0.1s all 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp1 #oval1 {
+      transform: scale(0) translate(0, -30px);
+      transform-origin: 0 0 0;
+      transition: 0.5s transform 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp1 #oval2 {
+      transform: scale(0) translate(10px, -50px);
+      transform-origin: 0 0 0;
+      transition: 1.5s transform 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp2 {
+      opacity: 1;
+      transition: 0.1s all 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp2 #oval1 {
+      transform: scale(0) translate(30px, -15px);
+      transform-origin: 0 0 0;
+      transition: 0.5s transform 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp2 #oval2 {
+      transform: scale(0) translate(60px, -15px);
+      transform-origin: 0 0 0;
+      transition: 1.5s transform 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp3 {
+      opacity: 1;
+      transition: 0.1s all 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp3 #oval1 {
+      transform: scale(0) translate(30px, 0px);
+      transform-origin: 0 0 0;
+      transition: 0.5s transform 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp3 #oval2 {
+      transform: scale(0) translate(60px, 10px);
+      transform-origin: 0 0 0;
+      transition: 1.5s transform 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp4 {
+      opacity: 1;
+      transition: 0.1s all 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp4 #oval1 {
+      transform: scale(0) translate(30px, 15px);
+      transform-origin: 0 0 0;
+      transition: 0.5s transform 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp4 #oval2 {
+      transform: scale(0) translate(40px, 50px);
+      transform-origin: 0 0 0;
+      transition: 1.5s transform 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp5 {
+      opacity: 1;
+      transition: 0.1s all 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp5 #oval1 {
+      transform: scale(0) translate(-10px, 20px);
+      transform-origin: 0 0 0;
+      transition: 0.5s transform 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp5 #oval2 {
+      transform: scale(0) translate(-60px, 30px);
+      transform-origin: 0 0 0;
+      transition: 1.5s transform 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp6 {
+      opacity: 1;
+      transition: 0.1s all 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp6 #oval1 {
+      transform: scale(0) translate(-30px, 0px);
+      transform-origin: 0 0 0;
+      transition: 0.5s transform 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp6 #oval2 {
+      transform: scale(0) translate(-60px, -5px);
+      transform-origin: 0 0 0;
+      transition: 1.5s transform 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp7 {
+      opacity: 1;
+      transition: 0.1s all 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp7 #oval1 {
+      transform: scale(0) translate(-30px, -15px);
+      transform-origin: 0 0 0;
+      transition: 0.5s transform 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp7 #oval2 {
+      transform: scale(0) translate(-55px, -30px);
+      transform-origin: 0 0 0;
+      transition: 1.5s transform 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp2 {
+      opacity: 1;
+      transition: 0.1s opacity 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp3 {
+      opacity: 1;
+      transition: 0.1s opacity 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp4 {
+      opacity: 1;
+      transition: 0.1s opacity 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp5 {
+      opacity: 1;
+      transition: 0.1s opacity 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp6 {
+      opacity: 1;
+      transition: 0.1s opacity 0.3s;
+    }
+
+    .checkbox:checked + label svg #grp7 {
+      opacity: 1;
+      transition: 0.1s opacity 0.3s;
+    }
+
+    @keyframes animateCircle {
+      40% {
+        transform: scale(10);
+        opacity: 1;
+        fill: #dd4688;
+      }
+      55% {
+        transform: scale(11);
+        opacity: 1;
+        fill: #d46abf;
+      }
+      65% {
+        transform: scale(12);
+        opacity: 1;
+        fill: #cc8ef5;
+      }
+      75% {
+        transform: scale(13);
+        opacity: 1;
+        fill: transparent;
+        stroke: #cc8ef5;
+        stroke-width: 0.5;
+      }
+      85% {
+        transform: scale(17);
+        opacity: 1;
+        fill: transparent;
+        stroke: #cc8ef5;
+        stroke-width: 0.2;
+      }
+      95% {
+        transform: scale(18);
+        opacity: 1;
+        fill: transparent;
+        stroke: #cc8ef5;
+        stroke-width: 0.1;
+      }
+      100% {
+        transform: scale(19);
+        opacity: 1;
+        fill: transparent;
+        stroke: #cc8ef5;
+        stroke-width: 0;
+      }
+    }
+
+    @keyframes animateHeart {
+      0% {
+        transform: scale(0.2);
+      }
+      40% {
+        transform: scale(1.2);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes animateHeartOut {
+      0% {
+        transform: scale(1.4);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  }
+}
+body.dark {
+  div.playerMain {
+    background-color: #333333;
+    @media (max-width: 768px) {
+      border-bottom: 1px solid #000000;
+    }
+  }
+  span.progress_bar {
+    background-color: #5a5a5a !important;
+  }
+  span.progress_fill {
+    background-color: #f1f3f6 !important;
+  }
+  div.playerMain .controls .buttons {
+    .active {
+      color: #ffffff;
+    }
+    span:hover {
+      color: #ffffff;
+    }
+    .play-btn {
+      background-color: #6f6f6f;
+      color: #ffffff;
+    }
+  }
+}
+.loader {
+  position: absolute;
+  left: -2px;
+  top: -1px;
+  svg {
+    width: 35px;
+    animation: 2s linear infinite svg-animation;
+    max-width: 100px;
+    position: absolute;
+  }
+
+  // SVG animation.
+  @keyframes svg-animation {
+    0% {
+      transform: rotateZ(0deg);
+    }
+    100% {
+      transform: rotateZ(360deg);
+    }
+  }
+
+  // Circle styles.
+  circle {
+    animation: 1.4s ease-in-out infinite both circle-animation;
+    display: block;
+    fill: transparent;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-dasharray: 283;
+    stroke-dashoffset: 280;
+    stroke-width: 5px;
+    transform-origin: 50% 50%;
+  }
+
+  // Circle animation.
+  @keyframes circle-animation {
+    0%,
+    25% {
+      stroke-dashoffset: 280;
+      transform: rotate(0);
+    }
+
+    50%,
+    75% {
+      stroke-dashoffset: 75;
+      transform: rotate(45deg);
+    }
+
+    100% {
+      stroke-dashoffset: 280;
+      transform: rotate(360deg);
+    }
+  }
+}
+.playPause {
+  position: relative;
+}

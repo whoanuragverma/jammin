@@ -12,7 +12,7 @@
         >
       </span>
     </span>
-    <span class="like">
+    <span class="like" title="Add to Liked Songs">
       <input
         type="checkbox"
         class="checkbox"
@@ -87,7 +87,7 @@
   </div>
   <div class="controls">
     <span class="buttons">
-      <span [class.active]="isShuffle" (click)="shuffle()"
+      <span title="Shuffle" [class.active]="isShuffle" (click)="shuffle()"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
           width="14"
@@ -103,7 +103,7 @@
             d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"
           /></svg
       ></span>
-      <span
+      <span title="Previous Song"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
           width="11"
@@ -125,12 +125,14 @@
           fill="currentColor"
           viewBox="0 0 16 16"
           *ngIf="!isPlaying"
+          title="Play Song"
         >
           <path
             d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"
           />
         </svg>
         <svg
+          title="Pause Song"
           xmlns="http://www.w3.org/2000/svg"
           width="16"
           height="16"
@@ -143,7 +145,7 @@
             d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"
           /></svg
       ></span>
-      <span
+      <span title="Next Song"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
           width="11"
@@ -153,7 +155,7 @@
         >
           <path d="M20 22v-20h2v20h-2zm-18 0l16-10-16-10v20z" /></svg
       ></span>
-      <span [class.active]="isRepeat" (click)="repeat()"
+      <span title="Repeat" [class.active]="isRepeat" (click)="repeat()"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
           width="14"
@@ -171,7 +173,7 @@
       ></span>
     </span>
     <span class="timer">
-      <span class="Stime">{{ current | time }}</span>
+      <span class="Stime" title="Elaplsed Time">{{ current | time }}</span>
       <span
         class="progress"
         id="progress"
@@ -188,13 +190,14 @@
         ></span>
         <audio #source [src]="media" preload="metadata"></audio>
       </span>
-      <span class="Etime">{{ duration | time }}</span>
+      <span class="Etime" title="Duration">{{ duration | time }}</span>
     </span>
   </div>
   <div class="misc">
     <span
       class="icon"
-      [routerLink]="['/playlist']"
+      [routerLink]="['/lyrics']"
+      title="Lyrics"
       [routerLinkActive]="['active']"
     >
       <svg
@@ -214,6 +217,7 @@
         /></svg
     ></span>
     <span
+      title="Queue"
       class="icon"
       [routerLink]="['/queue']"
       [routerLinkActive]="['active']"
@@ -231,7 +235,7 @@
           d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
         /></svg
     ></span>
-    <span class="volume" (click)="mute()">
+    <span class="volume" (click)="mute()" title="Volume">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="18"
@@ -303,16 +307,12 @@
     <span class="progress" id="progress">
       <span class="progress_bar"></span>
       <span class="progress_fill" [style.width]="playerProgress"></span>
-      <span
-        class="progress_dot"
-        [style.left]="playerProgress"
-        draggable="true"
-      ></span>
     </span>
     <span (click)="playPause()" class="playPause">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="22"
+        title="Play"
         class="play-btn"
         height="22"
         fill="currentColor"
@@ -327,6 +327,7 @@
         xmlns="http://www.w3.org/2000/svg"
         width="22"
         height="22"
+        title="Pause"
         class="play-btn"
         *ngIf="isPlaying"
         fill="currentColor"

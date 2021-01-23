@@ -33,6 +33,15 @@ export class DatabseService {
   async getUser() {
     return (await this.afAuth.currentUser).uid;
   }
+  async nowPlaying() {
+    const uid = (await this.afAuth.currentUser).uid;
+    return this.db
+      .collection('users')
+      .doc(uid)
+      .collection('nowPlaying')
+      .doc('0')
+      .valueChanges();
+  }
   async createPlaylist() {
     const uid = (await this.afAuth.currentUser).uid;
     return this.db

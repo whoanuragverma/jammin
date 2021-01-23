@@ -18,6 +18,12 @@ div.sidenav {
     overflow: auto;
     margin: 0.4rem;
     font-size: 0.9rem;
+    :nth-child(n):last-child {
+      display: none;
+    }
+    :only-child {
+      display: block !important;
+    }
     span {
       padding: 0.3rem;
       margin: 0.1rem;

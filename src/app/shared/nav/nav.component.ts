@@ -5,14 +5,9 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import {
-  Component,
-  Input,
-  OnInit,
-  ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { SearchService } from 'src/app/search.service';
 
 @Component({
   selector: 'app-nav',
@@ -39,13 +34,22 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 export class NavComponent implements OnInit {
   public data: any;
-  constructor(private afAuth: AngularFireAuth) {}
+  public search: string = '';
+  constructor(
+    private afAuth: AngularFireAuth,
+    private searchService: SearchService
+  ) {}
   public items: any = ['account', 'profile', 'log out'];
   public isOpen: boolean = false;
   async ngOnInit(): Promise<void> {
     this.data = await this.afAuth.currentUser;
   }
+
   toggle() {
     this.isOpen = !this.isOpen;
+  }
+  handleKey(event) {
+    this.search = event.target.value;
+    this.searchService.changeData(this.search);
   }
 }

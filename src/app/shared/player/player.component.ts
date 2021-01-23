@@ -5,6 +5,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import { DatabseService } from 'src/app/databse.service';
 
 @Component({
   selector: 'app-player',
@@ -23,12 +24,14 @@ export class PlayerComponent implements OnInit {
   public playerProgress: string = '0%';
   private icons: Array<any> = [];
   @ViewChild('source') source;
-  @Input() url: string;
-  @Input() media: string;
-  @Input() title: string;
-  @Input() artist: string;
-  @Input() album: string;
-  constructor() {
+  public url: string;
+  public media: string;
+  public title: string;
+  public artist: string;
+  public volume: string = '100%';
+  public album: string;
+  public isMute: boolean = false;
+  constructor(private db: DatabseService) {
     this.convertToPNG = this.convertToPNG.bind(this);
   }
   shuffle() {
@@ -36,6 +39,10 @@ export class PlayerComponent implements OnInit {
   }
   repeat() {
     this.isRepeat = !this.isRepeat;
+  }
+  mute() {
+    this.isMute = !this.isMute;
+    this.source.nativeElement.muted = this.isMute;
   }
   playPause() {
     const elem = this.source.nativeElement;
@@ -75,21 +82,35 @@ export class PlayerComponent implements OnInit {
       );
     };
   }
-
+  dragEventVol(event) {
+    const { left } = event.target.getBoundingClientRect();
+    const width = document.querySelector('#volume').clientWidth;
+    const x = event.clientX - left;
+    this.volume = `${(x / width) * 100}%`;
+    this.source.nativeElement.volume = x / width;
+  }
+  checkVol(vol: string) {
+    const v = parseInt(vol.split('%')[0]);
+    return v;
+  }
   dragEvent(event) {
     const { left } = event.target.getBoundingClientRect();
-    const width = document.querySelector('.progress').clientWidth;
+    const width = document.querySelector('#progress').clientWidth;
     const x = event.clientX - left;
     this.playerProgress = `${(x / width) * 100}%`;
     this.source.nativeElement.currentTime =
       (x / width) * this.source.nativeElement.duration;
   }
-  ngOnInit(): void {
-    this.artist = eval(this.artist);
-    const size = ['50x50.jpg', '150x150.jpg', '500x500.jpg'];
-    size.forEach((s) =>
-      this.convertToPNG(`${this.url}${s}?q=${Math.random()}`)
-    );
+  async ngOnInit(): Promise<void> {
+    (await this.db.nowPlaying()).subscribe((data) => {
+      const size = ['50x50.jpg', '150x150.jpg', '500x500.jpg'];
+      this.title = data?.title;
+      this.album = data?.album;
+      this.url = data?.url;
+      this.artist = data?.artist;
+      this.media = data?.media['low'];
+      size.forEach((s) => this.convertToPNG(`${this.url}${s}`));
+    });
   }
   ngAfterViewInit() {
     this.source.nativeElement.addEventListener('loadedmetadata', () => {

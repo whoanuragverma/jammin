@@ -26,6 +26,14 @@ const routes: Routes = [
     component: LikedComponent,
   },
   {
+    path: 'playlist',
+    component: LikedComponent,
+  },
+  {
+    path: 'queue',
+    component: LikedComponent,
+  },
+  {
     path: 'recents',
     component: RecentsComponent,
   },

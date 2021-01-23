@@ -1,6 +1,6 @@
 <div class="playerMain">
   <div class="nowPlaying">
-    <img [src]="url + '50x50.jpg'" alt="Yummy - Justin Bieber" />
+    <img [src]="url + '150x150.jpg'" [alt]="title" />
     <span class="title">
       <span class="name">{{ title }}</span>
       <span class="artist">
@@ -174,6 +174,7 @@
       <span class="Stime">{{ current | time }}</span>
       <span
         class="progress"
+        id="progress"
         (dragover)="dragEvent($event)"
         (drop)="dragEvent($event)"
         (click)="dragEvent($event)"
@@ -190,5 +191,150 @@
       <span class="Etime">{{ duration | time }}</span>
     </span>
   </div>
-  <div class="misc">CONTROLS</div>
+  <div class="misc">
+    <span
+      class="icon"
+      [routerLink]="['/playlist']"
+      [routerLinkActive]="['active']"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-music-note"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M9 13c0 1.105-1.12 2-2.5 2S4 14.105 4 13s1.12-2 2.5-2 2.5.895 2.5 2z"
+        />
+        <path fill-rule="evenodd" d="M9 3v10H8V3h1z" />
+        <path
+          d="M8 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 13 2.22V4L8 5V2.82z"
+        /></svg
+    ></span>
+    <span
+      class="icon"
+      [routerLink]="['/queue']"
+      [routerLinkActive]="['active']"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-list"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+        /></svg
+    ></span>
+    <span class="volume" (click)="mute()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        height="18"
+        fill="currentColor"
+        *ngIf="checkVol(volume) == 0 || isMute"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06zm7.137 2.096a.5.5 0 0 1 0 .708L12.207 8l1.647 1.646a.5.5 0 0 1-.708.708L11.5 8.707l-1.646 1.647a.5.5 0 0 1-.708-.708L10.793 8 9.146 6.354a.5.5 0 1 1 .708-.708L11.5 7.293l1.646-1.647a.5.5 0 0 1 .708 0z"
+        />
+      </svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        *ngIf="checkVol(volume) < 71 && checkVol(volume) > 25 && !isMute"
+        height="18"
+        fill="currentColor"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M9 4a.5.5 0 0 0-.812-.39L5.825 5.5H3.5A.5.5 0 0 0 3 6v4a.5.5 0 0 0 .5.5h2.325l2.363 1.89A.5.5 0 0 0 9 12V4zm3.025 4a4.486 4.486 0 0 1-1.318 3.182L10 10.475A3.489 3.489 0 0 0 11.025 8 3.49 3.49 0 0 0 10 5.525l.707-.707A4.486 4.486 0 0 1 12.025 8z"
+        />
+      </svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        height="18"
+        *ngIf="checkVol(volume) > 70 && !isMute"
+        fill="currentColor"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-.708.707A7.476 7.476 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303l.708.707z"
+        />
+        <path
+          d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.483 5.483 0 0 1 11.025 8a5.483 5.483 0 0 1-1.61 3.89l.706.706z"
+        />
+        <path
+          d="M8.707 11.182A4.486 4.486 0 0 0 10.025 8a4.486 4.486 0 0 0-1.318-3.182L8 5.525A3.489 3.489 0 0 1 9.025 8 3.49 3.49 0 0 1 8 10.475l.707.707zM6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06z"
+        />
+      </svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        *ngIf="checkVol(volume) <= 25 && checkVol(volume) > 0 && !isMute"
+        height="18"
+        fill="currentColor"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M10.717 3.55A.5.5 0 0 1 11 4v8a.5.5 0 0 1-.812.39L7.825 10.5H5.5A.5.5 0 0 1 5 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06z"
+        />
+      </svg>
+    </span>
+    <span
+      class="vol progress"
+      id="volume"
+      (dragover)="dragEventVol($event)"
+      (drop)="dragEventVol($event)"
+      (click)="dragEventVol($event)"
+    >
+      <span class="progress_bar"></span>
+      <span class="progress_fill" [style.width]="volume"></span>
+      <span class="progress_dot" [style.left]="volume" draggable="true"></span>
+    </span>
+  </div>
+  <div class="mobile-controls">
+    <span class="progress" id="progress">
+      <span class="progress_bar"></span>
+      <span class="progress_fill" [style.width]="playerProgress"></span>
+      <span
+        class="progress_dot"
+        [style.left]="playerProgress"
+        draggable="true"
+      ></span>
+    </span>
+    <span (click)="playPause()" class="playPause">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="22"
+        class="play-btn"
+        height="22"
+        fill="currentColor"
+        viewBox="0 0 16 16"
+        *ngIf="!isPlaying"
+      >
+        <path
+          d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"
+        />
+      </svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="22"
+        height="22"
+        class="play-btn"
+        *ngIf="isPlaying"
+        fill="currentColor"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"
+        /></svg
+    ></span>
+  </div>
 </div>

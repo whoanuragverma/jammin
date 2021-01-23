@@ -8,6 +8,8 @@
       type="text"
       class="main__search"
       placeholder="Search for Artists, Songs, Albums, or Podcasts"
+      [(value)]="search"
+      (keyup)="handleKey($event)"
     />
   </div>
   <div class="account" (click)="toggle()">

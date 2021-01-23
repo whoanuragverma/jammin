@@ -1,4 +1,26 @@
 div.playerMain {
+  .like {
+    @media (max-width: 768px) {
+      position: absolute;
+      right: 2.6rem;
+      top: 0.75rem;
+    }
+  }
+  .mobile-controls {
+    margin-top: 0.35rem;
+    margin-right: 0.4rem;
+    position: relative;
+    @media (min-width: 768px) {
+      display: none !important;
+    }
+    .progress {
+      position: absolute;
+      width: 100vw;
+      right: -14px;
+      top: -1.4rem;
+      box-sizing: border-box;
+    }
+  }
   position: absolute;
   bottom: 0px;
   margin: 0.4rem;
@@ -12,6 +34,60 @@ div.playerMain {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  span {
+    margin: 0 0.3rem;
+    &.progress {
+      width: 80%;
+      position: relative;
+      .progress_bar {
+        cursor: pointer;
+        background-color: #dfdfdf;
+        border-radius: 3px;
+        padding: 0.1rem;
+        width: 100%;
+        display: block;
+        &:hover ~ .progress_dot {
+          opacity: 1;
+        }
+        margin: 0.1rem;
+        box-sizing: border-box;
+      }
+      .progress_fill {
+        transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.4s;
+        position: absolute;
+        top: 0;
+        border-radius: 3px;
+        padding: 0.1rem;
+        width: 100%;
+        display: block;
+        &:hover ~ .progress_dot {
+          opacity: 1;
+        }
+        margin: 0.1rem;
+        background-color: #a9a9ab;
+        box-sizing: border-box;
+        cursor: pointer;
+      }
+      .progress_dot {
+        transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.4s;
+        width: 0.2rem;
+        cursor: pointer;
+        background: #ffffff;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        opacity: 0;
+        border-radius: 50%;
+        height: 0.2rem;
+        position: absolute;
+        top: 1px;
+        &:hover {
+          opacity: 1;
+        }
+        display: block;
+        left: 0px;
+        transform: scale(3.5);
+      }
+    }
+  }
   @media (max-width: 768px) {
     bottom: 4rem;
     box-shadow: none;
@@ -20,11 +96,38 @@ div.playerMain {
     border-bottom: 2px solid #f1f3f6;
     width: 100%;
   }
+  .misc {
+    @media (max-width: 768px) {
+      display: none !important;
+    }
+    padding-top: 0.28rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 15%;
+    .volume {
+      margin: 0;
+    }
+    .vol {
+      padding-bottom: 0.3rem;
+    }
+    svg {
+      margin: 0 0.15rem;
+      cursor: pointer;
+    }
+    .icon {
+      outline: none;
+      color: #a9a9ab;
+    }
+    .active {
+      color: inherit;
+    }
+  }
   .controls {
     @media (max-width: 768px) {
       display: none !important;
     }
-    transform: translateX(-10%);
+    // transform: translateX(-10%);
     display: flex;
     width: 40%;
     flex-direction: column;
@@ -36,65 +139,6 @@ div.playerMain {
       display: flex;
       justify-content: center;
       align-items: center;
-      span {
-        margin: 0 0.3rem;
-        &.progress {
-          width: 80%;
-          position: relative;
-          .progress_bar {
-            cursor: pointer;
-            background-color: #dfdfdf;
-            border-radius: 3px;
-            padding: 0.1rem;
-            width: 100%;
-            display: block;
-            &:hover ~ .progress_dot {
-              opacity: 1;
-            }
-            margin: 0.1rem;
-            box-sizing: border-box;
-          }
-          .progress_fill {
-            transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.4s;
-            position: absolute;
-            top: 0;
-            border-radius: 3px;
-            padding: 0.1rem;
-            width: 100%;
-            display: block;
-            &:hover ~ .progress_dot {
-              opacity: 1;
-            }
-            margin: 0.1rem;
-            background-color: #a9a9ab;
-            box-sizing: border-box;
-            cursor: pointer;
-          }
-          .progress_dot {
-            transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.4s;
-            width: 0.2rem;
-            cursor: pointer;
-            background: #ffffff;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
-              0 1px 2px rgba(0, 0, 0, 0.24);
-            opacity: 0;
-            border-radius: 50%;
-            height: 0.2rem;
-            position: absolute;
-            top: 1px;
-            &:hover {
-              opacity: 1;
-            }
-            display: block;
-            left: 0px;
-            transform: scale(3.5);
-          }
-        }
-        .slider {
-          width: 100%;
-          height: 2px !important;
-        }
-      }
     }
     .buttons {
       align-items: center;
@@ -143,6 +187,9 @@ div.playerMain {
         font-weight: 500;
       }
       .artist {
+        span {
+          margin: 0 !important;
+        }
         font-weight: 400;
         font-size: 0.7rem;
         .comma:not(:empty) ~ .comma:not(:empty):before {
@@ -153,6 +200,7 @@ div.playerMain {
     img {
       margin-right: 0.4rem;
       border-radius: 0.6rem;
+      width: 50px;
     }
     svg {
       margin-left: 1.5rem;

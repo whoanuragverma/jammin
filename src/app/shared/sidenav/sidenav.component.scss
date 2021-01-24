@@ -3,6 +3,7 @@ div.mainContent-LeftPad {
   left: max(210px, 18%);
   width: calc(100% - max(210px, 18%));
   height: calc(100% - 130px);
+  margin-top: 1rem;
   overflow: auto;
   @media (max-width: 768px) {
     position: initial;

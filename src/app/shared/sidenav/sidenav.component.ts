@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DatabseService } from 'src/app/databse.service';
 import { map } from 'rxjs/operators';
 @Component({
-  selector: 'app-sidenav',
+  selector: 'sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss'],
   encapsulation: ViewEncapsulation.None,

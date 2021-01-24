@@ -9,13 +9,21 @@ import { SearchComponent } from './search/search.component';
 import { LibraryComponent } from './library/library.component';
 import { LikedComponent } from './liked/liked.component';
 import { RecentsComponent } from './recents/recents.component';
-
+import { TitlePipe } from './title.pipe';
+import { MaxArtistPipe } from './max-artist.pipe';
 
 @NgModule({
-  declarations: [E404Component, BrowseComponent, PlaylistComponent, SearchComponent, LibraryComponent, LikedComponent, RecentsComponent],
-  imports: [
-    CommonModule,
-    ComponentsRoutingModule
-  ]
+  declarations: [
+    E404Component,
+    BrowseComponent,
+    PlaylistComponent,
+    SearchComponent,
+    LibraryComponent,
+    LikedComponent,
+    RecentsComponent,
+    TitlePipe,
+    MaxArtistPipe,
+  ],
+  imports: [CommonModule, ComponentsRoutingModule],
 })
-export class ComponentsModule { }
+export class ComponentsModule {}

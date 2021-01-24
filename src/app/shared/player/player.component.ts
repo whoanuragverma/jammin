@@ -8,7 +8,7 @@ import {
 import { DatabseService } from 'src/app/databse.service';
 
 @Component({
-  selector: 'app-player',
+  selector: 'player',
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.scss'],
   encapsulation: ViewEncapsulation.None,

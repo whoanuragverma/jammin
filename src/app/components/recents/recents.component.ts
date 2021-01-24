@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-recents',
+  selector: 'recents',
   templateUrl: './recents.component.html',
-  styleUrls: ['./recents.component.scss']
+  styleUrls: ['./recents.component.scss'],
 })
 export class RecentsComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

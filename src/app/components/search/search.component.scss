@@ -1,0 +1,109 @@
+.search__result {
+  .title {
+    font-weight: 500 !important;
+    font-size: 1.5rem;
+  }
+  .results {
+    @media (max-width: 768px) {
+      margin-top: 0.7rem;
+      padding: 0.4rem;
+    }
+    .grid-template {
+      display: grid;
+      grid-template-columns: repeat(2, 50%);
+      div {
+        padding: 0.3rem;
+      }
+      @media (max-width: 768px) {
+        grid-template-columns: repeat(1, 100%);
+      }
+      .topQuery {
+        display: flex;
+        flex-direction: column;
+
+        .card {
+          margin-top: 0.5rem;
+          background-color: #ffffff;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+            0 1px 2px rgba(0, 0, 0, 0.24);
+          border-radius: 5px;
+          padding: 0.5rem;
+          display: flex;
+          .placeholder {
+            width: 130px;
+            height: 130px;
+            .img {
+              height: 120px;
+              width: 120px;
+              background-size: contain !important;
+              border-radius: 8px;
+              background-repeat: no-repeat !important;
+            }
+          }
+          .details {
+            font-size: 1rem;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            span {
+              font-weight: 400;
+              .artist {
+                font-size: 0.75rem;
+              }
+              .title {
+                font-weight: 500 !important;
+              }
+            }
+            .type {
+              text-transform: uppercase;
+              border: 1px solid;
+              width: fit-content;
+              padding: 0.1rem;
+              font-size: 0.8rem;
+              border-radius: 6px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .mobile-search {
+    @media (min-width: 768px) {
+      display: none;
+    }
+    display: flex;
+    justify-content: center;
+    margin: 0 0.3rem;
+    svg {
+      height: inherit;
+      color: #909090;
+      width: 1.4rem;
+      background: #ffffff;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+    input {
+      padding: 0.2rem;
+      width: 95%;
+      border: none;
+      height: 2rem;
+      font-size: 1rem;
+      font-family: inherit;
+      &::before {
+        content: "d";
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+body.dark {
+  .search__result .results .grid-template .topQuery .card {
+    background-color: #333333;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.3s;
+    &:hover {
+      background-color: #4d4d4d;
+    }
+  }
+}

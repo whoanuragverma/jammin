@@ -1,1 +1,66 @@
-<div class="topQuery" *ngIf="result?.topquery">Hi</div>
+<div class="search__result">
+  <div class="mobile-search">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="feather feather-search"
+    >
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+    <input
+      type="text"
+      (keyup)="handleChange($event)"
+      placeholder="Search for artists, albums, songs ,or podcasts"
+    />
+  </div>
+  <div class="results">
+    <div *ngIf="!result; else resBlock">
+      <span class="title">Recent searches</span>
+      <ng-container>Dummy Data Goes Here</ng-container>
+    </div>
+    <ng-template #resBlock>
+      <div class="grid-template">
+        <div class="topQuery" *ngIf="result?.topquery?.image['150x150']">
+          <span class="title">Top Result</span>
+          <span
+            class="card"
+            [routerLink]="
+              result?.topquery.type !== song ? ['/', result?.topquery.url] : []
+            "
+          >
+            <div class="placeholder">
+              <div
+                class="img"
+                [style.background]="
+                  'url(https://cdn.jammin.workers.dev/' +
+                  result?.topquery.image['150x150'] +
+                  ')'
+                "
+              ></div>
+            </div>
+            <div class="details">
+              <span class="title">{{ result?.topquery.title | title }}</span>
+              <span class="album">{{ result?.topquery.album }}</span>
+              <span class="artist" *ngIf="result?.topquery.type !== 'artist'">{{
+                result?.topquery.artist || result?.topquery.music | maxArtist
+              }}</span>
+              <span class="type"> {{ result?.topquery.type }}</span>
+            </div>
+          </span>
+        </div>
+        <div>HELLO</div>
+        <div>HELLO</div>
+        <div>HELLO</div>
+        <div>HELLO</div>
+      </div>
+    </ng-template>
+  </div>
+</div>

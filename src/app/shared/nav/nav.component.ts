@@ -10,7 +10,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { SearchService } from 'src/app/search.service';
 
 @Component({
-  selector: 'app-nav',
+  selector: 'navbar',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
   encapsulation: ViewEncapsulation.None,

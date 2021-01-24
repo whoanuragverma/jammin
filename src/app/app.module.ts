@@ -13,6 +13,7 @@ import { SharedModule } from './shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentsModule } from './components/components.module';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [

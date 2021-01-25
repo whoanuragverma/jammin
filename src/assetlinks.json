@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.jammin",
+      "sha256_cert_fingerprints": [
+        "8C:15:29:E6:8C:77:BE:C8:9B:E3:29:88:F0:12:72:55:C1:FA:AC:39:F7:48:FA:41:FD:05:BE:4B:00:9F:19:2B"
+      ]
+    }
+  }
+]

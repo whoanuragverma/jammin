@@ -93,6 +93,7 @@ div.playerMain {
     box-shadow: none;
     border-radius: 0;
     margin: 0;
+    position: fixed;
     border-bottom: 2px solid #f1f3f6;
     width: 100%;
   }
@@ -129,6 +130,9 @@ div.playerMain {
     }
     // transform: translateX(-10%);
     display: flex;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
     width: 40%;
     flex-direction: column;
     justify-content: center;

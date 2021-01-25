@@ -42,6 +42,15 @@ export class DatabseService {
       .doc('0')
       .valueChanges();
   }
+  async setNowPlaying(data) {
+    const uid = (await this.afAuth.currentUser).uid;
+    return this.db
+      .collection('users')
+      .doc(uid)
+      .collection('nowPlaying')
+      .doc('0')
+      .set(data);
+  }
   async createPlaylist() {
     const uid = (await this.afAuth.currentUser).uid;
     return this.db

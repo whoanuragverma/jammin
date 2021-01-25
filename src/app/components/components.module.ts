@@ -11,6 +11,7 @@ import { LikedComponent } from './liked/liked.component';
 import { RecentsComponent } from './recents/recents.component';
 import { TitlePipe } from './title.pipe';
 import { MaxArtistPipe } from './max-artist.pipe';
+import { PlayDirective } from './play.directive';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { MaxArtistPipe } from './max-artist.pipe';
     RecentsComponent,
     TitlePipe,
     MaxArtistPipe,
+    PlayDirective,
   ],
   imports: [CommonModule, ComponentsRoutingModule],
 })

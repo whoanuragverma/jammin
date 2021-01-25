@@ -10,4 +10,14 @@ export class ApiService {
   autoComplete(query: string) {
     return this.http.get(`${this.base}/autocomplete?query=${query}`);
   }
+  search(token: string) {
+    return this.http.get(`${this.base}/search?token=${token}`);
+  }
+}
+interface nowPlaying {
+  album: string;
+  album_url: string;
+  artist: Array<any>;
+  media: Array<any>;
+  title: string;
 }

@@ -1,6 +1,6 @@
 <div class="playerMain">
   <div class="nowPlaying">
-    <img [src]="url + '150x150.jpg'" [alt]="title" />
+    <img [src]="url | safeurl" [alt]="title" />
     <span class="title">
       <span class="name">{{ title }}</span>
       <span class="artist">
@@ -188,7 +188,19 @@
           [style.left]="playerProgress"
           draggable="true"
         ></span>
-        <audio #source [src]="media" preload="metadata"></audio>
+        <audio
+          #source
+          [src]="media | safeurl"
+          preload="metadata"
+          *ngIf="!isFirstLoad"
+        ></audio>
+        <audio
+          #source
+          [src]="media | safeurl"
+          preload="metadata"
+          autoplay
+          *ngIf="isFirstLoad"
+        ></audio>
       </span>
       <span class="Etime" title="Duration">{{ duration | time }}</span>
     </span>

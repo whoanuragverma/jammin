@@ -13,6 +13,7 @@ import { SharedModule } from './shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentsModule } from './components/components.module';
+import { NgForage } from 'ngforage';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,7 +33,7 @@ import { ComponentsModule } from './components/components.module';
       enabled: environment.production,
     }),
   ],
-  providers: [],
+  providers: [NgForage],
   bootstrap: [AppComponent],
 })
 export class AppModule {

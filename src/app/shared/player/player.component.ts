@@ -5,6 +5,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import { CacheService } from 'src/app/cache.service';
 import { DatabseService } from 'src/app/databse.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class PlayerComponent implements OnInit {
   public isBuffering: boolean = false;
   public duration: number = 0;
   public current: number = 0;
+  public isFirstLoad: boolean = false;
   public playerProgress: string = '0%';
   private icons: Array<any> = [];
   @ViewChild('source') source;
@@ -31,7 +33,7 @@ export class PlayerComponent implements OnInit {
   public volume: string = '100%';
   public album: string;
   public isMute: boolean = false;
-  constructor(private db: DatabseService) {
+  constructor(private db: DatabseService, public cache: CacheService) {
     this.convertToPNG = this.convertToPNG.bind(this);
   }
   shuffle() {
@@ -49,11 +51,11 @@ export class PlayerComponent implements OnInit {
     this.isPlaying ? elem.pause() : elem.play();
     this.isPlaying = !this.isPlaying;
   }
-  convertToPNG(url: string) {
+  async convertToPNG(url: string) {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     const img = new Image();
-    img.src = url;
+    img.src = await this.cache.cacheFirst(url);
     img.crossOrigin = 'anonymous';
     img.onload = () => {
       canvas.width = img.width;
@@ -102,15 +104,18 @@ export class PlayerComponent implements OnInit {
       (x / width) * this.source.nativeElement.duration;
   }
   async ngOnInit(): Promise<void> {
-    (await this.db.nowPlaying()).subscribe((data) => {
+    (await this.db.nowPlaying()).subscribe(async (data) => {
+      //@ts-ignore
+      this.icons = [];
       const size = ['50x50.jpg', '150x150.jpg', '500x500.jpg'];
       this.title = data?.title;
       this.album = data?.album;
-      this.url = data?.url;
+      size.forEach((s) => this.convertToPNG(`${data?.url}${s}`));
+      this.url = await this.cache.cacheFirst(data?.url + '150x150.jpg');
       this.artist = data?.artist;
-      this.media = data?.media['low'];
-      size.forEach((s) => this.convertToPNG(`${this.url}${s}`));
+      this.media = await this.cache.cacheFirst(data?.media['low']);
     });
+    this.isFirstLoad = true;
   }
   ngAfterViewInit() {
     this.source.nativeElement.addEventListener('loadedmetadata', () => {
@@ -118,6 +123,9 @@ export class PlayerComponent implements OnInit {
     });
     this.source.nativeElement.addEventListener('ended', () => {
       this.isPlaying = false;
+    });
+    this.source.nativeElement.addEventListener('play', () => {
+      this.isPlaying = true;
     });
     this.source.nativeElement.addEventListener('waiting', () => {
       this.isBuffering = true;

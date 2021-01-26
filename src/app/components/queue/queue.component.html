@@ -1,0 +1,5 @@
+<div class="queue">
+  <span *ngFor="let q of queue.list; let i = index">
+    <p [class.bold]="i == queue.index">{{ i }} {{ q.title }}</p>
+  </span>
+</div>

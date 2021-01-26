@@ -2,7 +2,7 @@
   <div class="nowPlaying">
     <img [src]="url | safeurl" [alt]="title" />
     <span class="title">
-      <span class="name">{{ title }}</span>
+      <span class="name">{{ title | titlePipe }}</span>
       <span class="artist">
         <span
           *ngFor="let art of artist"
@@ -103,7 +103,7 @@
             d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"
           /></svg
       ></span>
-      <span title="Previous Song"
+      <span title="Previous Song" (click)="next(-1)"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
           width="11"
@@ -145,7 +145,7 @@
             d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"
           /></svg
       ></span>
-      <span title="Next Song"
+      <span title="Next Song" (click)="next(1)"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
           width="11"

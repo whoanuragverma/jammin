@@ -22,6 +22,15 @@ export class DatabseService {
   //       }
   //     });
   // }
+  async getQueue() {
+    const uid = (await this.afAuth.currentUser).uid;
+    return this.db
+      .collection('users')
+      .doc(uid)
+      .collection('nowPlaying')
+      .doc('queue')
+      .valueChanges();
+  }
   async getPlaylist() {
     const uid = (await this.afAuth.currentUser).uid;
     return this.db
@@ -29,6 +38,42 @@ export class DatabseService {
       .doc(uid)
       .collection('playlist')
       .snapshotChanges();
+  }
+  async nextSong(value) {
+    const uid = (await this.afAuth.currentUser).uid;
+    this.db
+      .collection('users')
+      .doc(uid)
+      .collection('nowPlaying')
+      .doc('queue')
+      .get()
+      .subscribe((data) => {
+        const dataT = data.data();
+        const index = dataT['index'];
+
+        if (index + value >= 0 || index + value < dataT['list'].length) {
+          this.db
+            .collection('users')
+            .doc(uid)
+            .collection('nowPlaying')
+            .doc('queue')
+            .update({ index: index + value });
+          this.setNowPlayingfrmQueue(dataT['list'][dataT['index'] + value]);
+        }
+      });
+  }
+  private async getNextSong() {
+    const uid = (await this.afAuth.currentUser).uid;
+    this.db
+      .collection('users')
+      .doc(uid)
+      .collection('nowPlaying')
+      .doc('queue')
+      .get()
+      .subscribe((data) => {
+        const dataT = data.data();
+        this.setNowPlayingfrmQueue(dataT['list'][dataT['index']]);
+      });
   }
   async getUser() {
     return (await this.afAuth.currentUser).uid;
@@ -39,7 +84,7 @@ export class DatabseService {
       .collection('users')
       .doc(uid)
       .collection('nowPlaying')
-      .doc('0')
+      .doc('playing')
       .valueChanges();
   }
   async setNowPlaying(data) {
@@ -48,8 +93,54 @@ export class DatabseService {
       .collection('users')
       .doc(uid)
       .collection('nowPlaying')
-      .doc('0')
+      .doc('playing')
       .set(data);
+  }
+  private setNowPlayingfrmQueue(data) {
+    const { title, album, album_url, explicit } = data as any;
+    let artist = [];
+    data?.artists.forEach((element) => {
+      if (artist.length < 2)
+        artist.push({
+          name: element?.name,
+          url: element?.url.split('/')[1],
+        });
+    });
+    let temp = [];
+    artist.forEach((el) => temp.push(JSON.stringify(el)));
+    temp = [...new Set(temp)];
+    artist = [];
+    temp.forEach((el) => artist.push(JSON.parse(el)));
+    let media = {};
+    Object.keys(data?.media).forEach((element) => {
+      media[element] = `https://cdn.jammin.workers.dev/${data?.media[element]}`;
+    });
+    const url = `https://cdn.jammin.workers.dev/${
+      data?.image['50x50'].split('50x50.jpg')[0]
+    }`;
+    this.setNowPlaying({
+      title,
+      album,
+      album_url,
+      artist,
+      media,
+      explicit,
+      url,
+    });
+  }
+
+  async newQueue(items) {
+    const uid = (await this.afAuth.currentUser).uid;
+    this.db
+      .collection('users')
+      .doc(uid)
+      .collection('nowPlaying')
+      .doc('queue')
+      .set({
+        list: items,
+        index: 0,
+      });
+    this.setNowPlayingfrmQueue(items[0]);
   }
   async createPlaylist() {
     const uid = (await this.afAuth.currentUser).uid;

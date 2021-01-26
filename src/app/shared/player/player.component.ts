@@ -61,6 +61,10 @@ export class PlayerComponent implements OnInit {
       canvas.width = img.width;
       canvas.height = img.height;
       ctx.drawImage(img, 0, 0);
+      let art = '';
+      (this.artist as any).forEach((el) => {
+        art = art.concat(`${el.name}, `);
+      });
       canvas.toBlob(
         (blob) => {
           this.icons.push({
@@ -73,7 +77,7 @@ export class PlayerComponent implements OnInit {
               //@ts-ignore
               navigator.mediaSession.metadata = new MediaMetaData$({
                 title: this.title,
-                artist: (this.artist[0] as any).name,
+                artist: art.slice(0, -2),
                 album: this.album,
                 artwork: this.icons,
               });
@@ -83,6 +87,9 @@ export class PlayerComponent implements OnInit {
         1
       );
     };
+  }
+  next(index) {
+    this.db.nextSong(index);
   }
   dragEventVol(event) {
     const { left } = event.target.getBoundingClientRect();
@@ -104,6 +111,16 @@ export class PlayerComponent implements OnInit {
       (x / width) * this.source.nativeElement.duration;
   }
   async ngOnInit(): Promise<void> {
+    try {
+      (navigator as any).mediaSession.setActionHandler('previoustrack', () =>
+        this.next(-1)
+      );
+      (navigator as any).mediaSession.setActionHandler('nexttrack', () =>
+        this.next(1)
+      );
+    } catch (error) {
+      console.log(error);
+    }
     (await this.db.nowPlaying()).subscribe(async (data) => {
       //@ts-ignore
       this.icons = [];
@@ -123,6 +140,7 @@ export class PlayerComponent implements OnInit {
     });
     this.source.nativeElement.addEventListener('ended', () => {
       this.isPlaying = false;
+      this.next(1);
     });
     this.source.nativeElement.addEventListener('play', () => {
       this.isPlaying = true;

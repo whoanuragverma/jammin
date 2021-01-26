@@ -5,6 +5,7 @@ import { E404Component } from './e404/e404.component';
 import { LibraryComponent } from './library/library.component';
 import { LikedComponent } from './liked/liked.component';
 import { PlaylistComponent } from './playlist/playlist.component';
+import { QueueComponent } from './queue/queue.component';
 import { RecentsComponent } from './recents/recents.component';
 import { SearchComponent } from './search/search.component';
 
@@ -31,7 +32,7 @@ const routes: Routes = [
   },
   {
     path: 'queue',
-    component: LikedComponent,
+    component: QueueComponent,
   },
   {
     path: 'recents',

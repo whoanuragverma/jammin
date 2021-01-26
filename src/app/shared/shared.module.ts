@@ -8,6 +8,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { PlayerComponent } from './player/player.component';
 import { TimePipe } from './time.pipe';
 import { SafeurlPipe } from './safeurl.pipe';
+import { TitlePipe } from './title.pipe';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { SafeurlPipe } from './safeurl.pipe';
     PlayerComponent,
     TimePipe,
     SafeurlPipe,
+    TitlePipe,
   ],
   exports: [NavComponent, SidenavComponent, PlayerComponent],
   imports: [CommonModule, RouterModule],

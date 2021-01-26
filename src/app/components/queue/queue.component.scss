@@ -1,0 +1,8 @@
+.queue {
+  display: flex;
+  flex-direction: column;
+  .bold {
+    font-weight: 500;
+    color: red;
+  }
+}

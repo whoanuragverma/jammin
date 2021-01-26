@@ -12,6 +12,7 @@ import { RecentsComponent } from './recents/recents.component';
 import { TitlePipe } from './title.pipe';
 import { MaxArtistPipe } from './max-artist.pipe';
 import { PlayDirective } from './play.directive';
+import { QueueComponent } from './queue/queue.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { PlayDirective } from './play.directive';
     TitlePipe,
     MaxArtistPipe,
     PlayDirective,
+    QueueComponent,
   ],
   imports: [CommonModule, ComponentsRoutingModule],
 })

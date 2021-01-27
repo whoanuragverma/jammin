@@ -6,7 +6,7 @@
       <span class="artist">
         <span
           *ngFor="let art of artist"
-          [routerLink]="['artist', art.src]"
+          [routerLink]="['artist', art.url]"
           class="comma"
           >{{ art.name }}</span
         >

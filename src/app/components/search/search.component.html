@@ -55,7 +55,11 @@
               <span class="type"> {{ result?.topquery.type }}</span>
             </div>
           </span>
-          <span class="play-btn" PlayThis [url]="result?.topquery.url"
+          <span
+            class="play-btn"
+            PlayThis
+            [url]="result?.topquery.url"
+            id="playBTN"
             ><svg
               xmlns="http://www.w3.org/2000/svg"
               width="22"
@@ -70,8 +74,45 @@
               /></svg
           ></span>
         </div>
-        <div>HELLO</div>
-        <div>HELLO</div>
+        <div *ngIf="result?.song.length > 0" class="songsResult">
+          <span class="title">Songs</span>
+          <span
+            *ngFor="let s of result?.song"
+            class="songs"
+            PlayThis
+            [url]="s.url"
+          >
+            <span
+              class="img"
+              [style.background]="
+                'url(https://cdn.jammin.workers.dev/' + s.image['50x50']
+              "
+            ></span>
+            <span class="details">
+              <span>{{ s.title }}</span>
+              <span>{{ s.singer }}</span>
+            </span>
+          </span>
+        </div>
+        <div *ngIf="result?.song.length > 0" class="albumResult">
+          <span class="title">Albums</span>
+          <span class="scrollable">
+            <span
+              *ngFor="let s of result?.album"
+              class="album"
+              PlayThis
+              [url]="s.url"
+            >
+              <span
+                class="img"
+                [style.background]="
+                  'url(https://cdn.jammin.workers.dev/' + s.image['150x150']
+                "
+              ></span>
+              <span class="details">{{ s.title }}</span>
+            </span></span
+          >
+        </div>
         <div>HELLO</div>
         <div>HELLO</div>
       </div>

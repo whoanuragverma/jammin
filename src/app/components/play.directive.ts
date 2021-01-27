@@ -11,40 +11,8 @@ export class PlayDirective {
   @HostListener('click')
   async onClick() {
     if (this.url.includes('song')) {
-      // Normal Call and update firebase
       this.api.search(this.url).subscribe((data) => {
-        const { title, album, album_url, explicit } = data[0] as any;
-        let artist = [];
-        data[0]?.artists.forEach((element) => {
-          if (artist.length < 2)
-            artist.push({
-              name: element?.name,
-              url: element?.url.split('/')[1],
-            });
-        });
-        let temp = [];
-        artist.forEach((el) => temp.push(JSON.stringify(el)));
-        temp = [...new Set(temp)];
-        artist = [];
-        temp.forEach((el) => artist.push(JSON.parse(el)));
-        let media = {};
-        Object.keys(data[0]?.media).forEach((element) => {
-          media[
-            element
-          ] = `https://cdn.jammin.workers.dev/${data[0]?.media[element]}`;
-        });
-        const url = `https://cdn.jammin.workers.dev/${
-          data[0]?.image['50x50'].split('50x50.jpg')[0]
-        }`;
-        this.db.setNowPlaying({
-          title,
-          album,
-          album_url,
-          artist,
-          media,
-          explicit,
-          url,
-        });
+        this.db.newQueue([data[0]]);
       });
     } else if (this.url.includes('album')) {
       // We need to fetch all songs in the current list
@@ -62,7 +30,6 @@ export class PlayDirective {
       let results = [];
       const r = await this.api.search(this.url).toPromise();
       results.push(...r['songs']);
-
       this.db.newQueue(results);
     }
   }

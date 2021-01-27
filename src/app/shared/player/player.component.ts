@@ -123,6 +123,7 @@ export class PlayerComponent implements OnInit {
     }
     (await this.db.nowPlaying()).subscribe(async (data) => {
       //@ts-ignore
+      this.db.cached(data);
       this.icons = [];
       const size = ['50x50.jpg', '150x150.jpg', '500x500.jpg'];
       this.title = data?.title;

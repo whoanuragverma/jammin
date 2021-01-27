@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-
+import { v4 } from 'uuid';
 @Injectable({
   providedIn: 'root',
 })
@@ -22,6 +22,23 @@ export class DatabseService {
   //       }
   //     });
   // }
+  async cached(data) {
+    const uid = (await this.afAuth.currentUser).uid;
+    const identifier = btoa(data['media']['low']);
+    const uuidL = localStorage.getItem('uuid');
+    if (!uuidL) {
+      localStorage.setItem('uuid', v4());
+    }
+    const uuid = localStorage.getItem('uuid');
+    this.db
+      .collection('users')
+      .doc(uid)
+      .collection('cache')
+      .doc(uuid)
+      .collection('0')
+      .doc(identifier)
+      .set(data, { merge: true });
+  }
   async getQueue() {
     const uid = (await this.afAuth.currentUser).uid;
     return this.db

@@ -8,7 +8,7 @@
           *ngFor="let art of artist"
           [routerLink]="['artist', art.url]"
           class="comma"
-          >{{ art.name }}</span
+          >{{ art.name | titlePipe }}</span
         >
       </span>
     </span>

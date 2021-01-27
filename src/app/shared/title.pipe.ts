@@ -5,6 +5,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TitlePipe implements PipeTransform {
   transform(value: string, ...args: unknown[]): unknown {
-    return value.split(' (From')[0];
+    return value.split(' (From')[0].replace('&amp;', '').replace('&quot', "'");
   }
 }

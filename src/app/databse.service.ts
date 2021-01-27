@@ -6,11 +6,24 @@ import { AngularFirestore } from '@angular/fire/firestore';
   providedIn: 'root',
 })
 export class DatabseService {
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore) {}
-
+  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore) {
+    // Check if doc with collection uid exists otherwise create it.
+    // this.checkNewUser();
+  }
+  // async checkNewUser() {
+  //   const uid = (await this.afAuth.currentUser).uid;
+  //   this.db
+  //     .collection('users')
+  //     .doc(uid)
+  //     .get()
+  //     .subscribe((doc) => {
+  //       if(!doc.exists){
+  //         doc.ref.
+  //       }
+  //     });
+  // }
   async getQueue() {
     const uid = (await this.afAuth.currentUser).uid;
-    console.log((await this.afAuth.currentUser).getIdToken());
     return this.db
       .collection('users')
       .doc(uid)

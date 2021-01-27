@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { SearchService } from 'src/app/search.service';
 import { ApiService } from '../api.service';
 
@@ -20,7 +20,9 @@ export class SearchComponent implements OnInit {
     this.searchService.data$.subscribe((res) => {
       this.query = res;
       if (res != '') {
-        this.api.autoComplete(res).subscribe((data) => (this.result = data));
+        this.api.autoComplete(res).subscribe((data) => {
+          this.result = data;
+        });
       } else {
         this.result = undefined;
       }

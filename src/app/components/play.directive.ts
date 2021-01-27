@@ -24,8 +24,10 @@ export class PlayDirective {
         if (total == 0) total = parseInt(r['total']);
         results.push(...r['results']);
         page += 1;
-      } while (results.length != total);
+      } while (results.length <= total);
       this.db.newQueue(results);
+    } else if (this.url.includes('playlist')) {
+      alert('COMING SOON');
     } else {
       let results = [];
       const r = await this.api.search(this.url).toPromise();

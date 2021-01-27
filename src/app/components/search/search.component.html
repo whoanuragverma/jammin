@@ -48,15 +48,17 @@
             </div>
             <div class="details">
               <span class="title">{{ result?.topquery.title | title }}</span>
-              <span class="album">{{ result?.topquery.album }}</span>
+              <span class="album">{{ result?.topquery.album | title }}</span>
               <span class="artist" *ngIf="result?.topquery.type !== 'artist'">{{
-                result?.topquery.artist || result?.topquery.music | maxArtist
+                result?.topquery.artist || result?.topquery.music
+                  | maxArtist
+                  | title
               }}</span>
               <span class="type"> {{ result?.topquery.type }}</span>
             </div>
           </span>
           <span
-            class="play-btn"
+            class="play-btn-cutom"
             PlayThis
             [url]="result?.topquery.url"
             id="playBTN"
@@ -64,7 +66,7 @@
               xmlns="http://www.w3.org/2000/svg"
               width="22"
               title="Play"
-              class="play-btn"
+              class="play-btn-cutom"
               height="22"
               fill="currentColor"
               viewBox="0 0 16 16"
@@ -89,32 +91,130 @@
               "
             ></span>
             <span class="details">
-              <span>{{ s.title }}</span>
-              <span>{{ s.singer }}</span>
+              <span>{{ s.title | title }}</span>
+              <span>{{ s.singer | title }}</span>
             </span>
           </span>
         </div>
-        <div *ngIf="result?.song.length > 0" class="albumResult">
+        <div *ngIf="result?.album.length > 0" class="albumResult">
           <span class="title">Albums</span>
           <span class="scrollable">
-            <span
-              *ngFor="let s of result?.album"
-              class="album"
-              PlayThis
-              [url]="s.url"
-            >
+            <span *ngFor="let s of result?.album" class="album">
               <span
                 class="img"
+                [routerLink]="s.url"
                 [style.background]="
                   'url(https://cdn.jammin.workers.dev/' + s.image['150x150']
                 "
               ></span>
-              <span class="details">{{ s.title }}</span>
-            </span></span
-          >
+              <span class="details">
+                <span class="title">{{ s.title | title }}</span>
+                <span class="singer">{{ s.music }}</span>
+              </span>
+              <span class="play-btn-cutom" PlayThis [url]="s.url" id="playBTN"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  title="Play"
+                  class="play-btn-cutom"
+                  height="22"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"
+                  /></svg
+              ></span> </span
+          ></span>
         </div>
-        <div>HELLO</div>
-        <div>HELLO</div>
+        <ng-container *ngIf="result?.artist[0]?.image['150x150']">
+          <div *ngIf="result.artist.length > 0" class="albumResult">
+            <span class="title">Artists</span>
+            <span class="scrollable">
+              <ng-container *ngFor="let s of result?.artist">
+                <span class="album" *ngIf="s.image['150x150']">
+                  <span
+                    class="img"
+                    [routerLink]="s.url"
+                    [style.background]="
+                      'url(https://cdn.jammin.workers.dev/' + s.image['150x150']
+                    "
+                  ></span>
+                  <span class="details">
+                    <span class="title-artist">{{ s.title | title }}</span>
+                  </span>
+                  <span
+                    class="play-btn-cutom"
+                    PlayThis
+                    [url]="s.url"
+                    id="playBTN"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="22"
+                      title="Play"
+                      class="play-btn-cutom"
+                      height="22"
+                      fill="currentColor"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"
+                      /></svg></span
+                ></span> </ng-container
+            ></span></div
+        ></ng-container>
+        <div *ngIf="result?.playlist.length > 0" class="albumResult">
+          <span class="title">Playlists</span>
+          <span class="scrollable">
+            <span *ngFor="let s of result?.playlist" class="album">
+              <span
+                class="img"
+                [routerLink]="s.url"
+                [style.background]="
+                  'url(https://cdn.jammin.workers.dev/' + s.image['150x150']
+                "
+              ></span>
+              <span class="details">
+                <span class="title">{{ s.title | title }}</span>
+                <span class="singer">{{ s.desc }}</span>
+              </span>
+              <span class="play-btn-cutom" PlayThis [url]="s.url" id="playBTN"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  title="Play"
+                  class="play-btn-cutom"
+                  height="22"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"
+                  /></svg
+              ></span> </span
+          ></span>
+        </div>
+
+        <div *ngIf="result?.podcast.length > 0" class="songsResult">
+          <span class="title">Podcasts</span>
+          <span
+            *ngFor="let s of result?.podcast"
+            class="songs"
+            PlayThis
+            [url]="s.url"
+          >
+            <span
+              class="img"
+              [style.background]="
+                'url(https://cdn.jammin.workers.dev/' + s.image['50x50']
+              "
+            ></span>
+            <span class="details">
+              <span>{{ s.title | title }}</span>
+              <span>{{ s.desc | title }}</span>
+            </span>
+          </span>
+        </div>
       </div>
     </ng-template>
   </div>

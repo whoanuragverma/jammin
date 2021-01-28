@@ -6,22 +6,8 @@ import { v4 } from 'uuid';
   providedIn: 'root',
 })
 export class DatabseService {
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore) {
-    // Check if doc with collection uid exists otherwise create it.
-    // this.checkNewUser();
-  }
-  // async checkNewUser() {
-  //   const uid = (await this.afAuth.currentUser).uid;
-  //   this.db
-  //     .collection('users')
-  //     .doc(uid)
-  //     .get()
-  //     .subscribe((doc) => {
-  //       if(!doc.exists){
-  //         doc.ref.
-  //       }
-  //     });
-  // }
+  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore) {}
+
   async removeLiked(data) {
     const uid = (await this.afAuth.currentUser).uid;
     const identifier = btoa(data['media']['low']);
@@ -214,6 +200,45 @@ export class DatabseService {
         index: 0,
       });
     this.setNowPlayingfrmQueue(items[0]);
+  }
+  async addToQueue(value) {
+    const uid = (await this.afAuth.currentUser).uid;
+    this.db
+      .collection('users')
+      .doc(uid)
+      .collection('nowPlaying')
+      .doc('queue')
+      .get()
+      .subscribe((data) => {
+        const dataT = data.data();
+
+        this.db
+          .collection('users')
+          .doc(uid)
+          .collection('nowPlaying')
+          .doc('queue')
+          .set({ list: [...dataT.list, value] }, { merge: true });
+      });
+  }
+  async playNext(value) {
+    const uid = (await this.afAuth.currentUser).uid;
+    this.db
+      .collection('users')
+      .doc(uid)
+      .collection('nowPlaying')
+      .doc('queue')
+      .get()
+      .subscribe((data) => {
+        const dataT = data.data();
+        let l: Array<any> = dataT['list'];
+        l.splice(dataT['index'] + 1, 0, value);
+        this.db
+          .collection('users')
+          .doc(uid)
+          .collection('nowPlaying')
+          .doc('queue')
+          .set({ list: l }, { merge: true });
+      });
   }
   async createPlaylist() {
     const uid = (await this.afAuth.currentUser).uid;

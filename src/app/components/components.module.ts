@@ -13,6 +13,7 @@ import { TitlePipe } from './title.pipe';
 import { MaxArtistPipe } from './max-artist.pipe';
 import { PlayDirective } from './play.directive';
 import { QueueComponent } from './queue/queue.component';
+import { DdComponent } from './dd/dd.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { QueueComponent } from './queue/queue.component';
     MaxArtistPipe,
     PlayDirective,
     QueueComponent,
+    DdComponent,
   ],
   imports: [CommonModule, ComponentsRoutingModule],
 })

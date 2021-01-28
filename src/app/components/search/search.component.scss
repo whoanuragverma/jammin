@@ -15,7 +15,9 @@
     @media (max-width: 768px) {
       margin-top: 0.7rem;
       padding: 0.4rem;
+      margin-bottom: 1rem;
     }
+
     .grid-template {
       display: grid;
       grid-template-columns: repeat(2, 50%);
@@ -109,6 +111,7 @@
           padding: 0.3rem 0.4rem;
           border-radius: 5px;
           display: flex;
+          position: relative;
           justify-content: space-between;
           cursor: pointer;
           transition: cubic-bezier(0.165, 0.84, 0.44, 1) 0.3s;
@@ -135,16 +138,22 @@
             @media (min-width: 768px) {
               opacity: 0;
             }
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
             display: flex;
             transition: cubic-bezier(0.165, 0.84, 0.44, 1) 0.2s;
             align-items: center;
             opacity: 1;
-            padding-top: 0.3rem;
             margin-right: 0.5rem;
+          }
+          .popup {
+            height: 0;
           }
           span.wrapper {
             display: flex;
-            width: 50%;
+            width: 80%;
             .img {
               width: 40px;
               height: 40px;
@@ -266,6 +275,9 @@ body.dark {
     &:hover {
       background-color: #4d4d4d;
     }
+  }
+  .search__result .results .grid-template .albumResult .album {
+    background-color: #333333;
   }
   .search__result .results .grid-template .topQuery .card .details .type {
     background-color: #000000;

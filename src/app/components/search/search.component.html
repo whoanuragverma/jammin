@@ -78,13 +78,8 @@
         </div>
         <div *ngIf="result?.song.length > 0" class="songsResult">
           <span class="title">Songs</span>
-          <span
-            *ngFor="let s of result?.song"
-            class="songs"
-            PlayThis
-            [url]="s.url"
-          >
-            <span class="wrapper">
+          <span *ngFor="let s of result?.song; let i = index" class="songs">
+            <span class="wrapper" PlayThis [url]="s.url">
               <span
                 class="img"
                 [style.background]="
@@ -96,6 +91,27 @@
                 <span>{{ s.singer | title }}</span>
               </span></span
             >
+            <span class="actions" (click)="songPopup[i] = !songPopup[i]">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-more-horizontal"
+              >
+                <circle cx="12" cy="12" r="1"></circle>
+                <circle cx="19" cy="12" r="1"></circle>
+                <circle cx="5" cy="12" r="1"></circle>
+              </svg>
+            </span>
+            <span class="popup">
+              <app-dd [url]="s.url" [isOpen]="songPopup[i]"></app-dd>
+            </span>
           </span>
         </div>
         <div *ngIf="result?.album.length > 0" class="albumResult">

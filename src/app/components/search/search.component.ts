@@ -12,7 +12,7 @@ export class SearchComponent implements OnInit {
   constructor(public searchService: SearchService, private api: ApiService) {}
   public query: string = '';
   public result: any;
-
+  public songPopup: any = [false, false, false];
   handleChange(event) {
     this.searchService.changeData(event.target.value);
   }

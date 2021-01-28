@@ -25,7 +25,7 @@ export class PlayDirective {
         results.push(...r['results']);
         page += 1;
       } while (results.length <= total);
-      this.db.newQueue(results);
+      this.db.newQueue(results.slice(0, results.length / 2));
     } else if (this.url.includes('playlist')) {
       alert('COMING SOON');
     } else {

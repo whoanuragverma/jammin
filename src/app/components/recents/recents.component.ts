@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DatabseService } from 'src/app/databse.service';
 
 @Component({
   selector: 'recents',
@@ -6,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./recents.component.scss'],
 })
 export class RecentsComponent implements OnInit {
-  constructor() {}
+  public recentSong: any;
+  constructor(private db: DatabseService) {}
 
-  ngOnInit(): void {}
+  async ngOnInit(): Promise<void> {
+    (await this.db.getRecent()).subscribe((data) => (this.recentSong = data));
+  }
 }

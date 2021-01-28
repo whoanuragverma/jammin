@@ -84,16 +84,18 @@
             PlayThis
             [url]="s.url"
           >
-            <span
-              class="img"
-              [style.background]="
-                'url(https://cdn.jammin.workers.dev/' + s.image['50x50']
-              "
-            ></span>
-            <span class="details">
-              <span>{{ s.title | title }}</span>
-              <span>{{ s.singer | title }}</span>
-            </span>
+            <span class="wrapper">
+              <span
+                class="img"
+                [style.background]="
+                  'url(https://cdn.jammin.workers.dev/' + s.image['50x50']
+                "
+              ></span>
+              <span class="details">
+                <span>{{ s.title | title }}</span>
+                <span>{{ s.singer | title }}</span>
+              </span></span
+            >
           </span>
         </div>
         <div *ngIf="result?.album.length > 0" class="albumResult">
@@ -102,7 +104,7 @@
             <span *ngFor="let s of result?.album" class="album">
               <span
                 class="img"
-                [routerLink]="s.url"
+                [routerLink]="['/', s.url.split('/')[0], s.url.split('/')[1]]"
                 [style.background]="
                   'url(https://cdn.jammin.workers.dev/' + s.image['150x150']
                 "
@@ -135,7 +137,11 @@
                 <span class="album" *ngIf="s.image['150x150']">
                   <span
                     class="img"
-                    [routerLink]="s.url"
+                    [routerLink]="[
+                      '/',
+                      s.url.split('/')[0],
+                      s.url.split('/')[1]
+                    ]"
                     [style.background]="
                       'url(https://cdn.jammin.workers.dev/' + s.image['150x150']
                     "
@@ -169,7 +175,7 @@
             <span *ngFor="let s of result?.playlist" class="album">
               <span
                 class="img"
-                [routerLink]="s.url"
+                [routerLink]="['/', s.url.split('/')[0], s.url.split('/')[1]]"
                 [style.background]="
                   'url(https://cdn.jammin.workers.dev/' + s.image['150x150']
                 "

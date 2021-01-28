@@ -90,6 +90,11 @@
             }
             .singer {
               font-size: 0.7rem;
+              height: 2rem;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              word-break: break-word;
+              white-space: nowrap;
             }
           }
         }
@@ -104,14 +109,14 @@
           padding: 0.3rem 0.4rem;
           border-radius: 5px;
           display: flex;
-          // margin: 0.1rem 0;
+          justify-content: space-between;
           cursor: pointer;
           transition: cubic-bezier(0.165, 0.84, 0.44, 1) 0.3s;
           &:hover {
             background-color: #ffffff;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
               0 1px 2px rgba(0, 0, 0, 0.24);
-            & > .img::after {
+            & > span > .img::after {
               content: "";
               width: 40px;
               height: 40px;
@@ -122,30 +127,49 @@
               background-repeat: no-repeat;
               background-position: center;
             }
+            & > .actions {
+              opacity: 1;
+            }
           }
-          .img {
-            width: 40px;
-            height: 40px;
-            background-repeat: no-repeat !important;
-            background-size: cover !important;
-            border-radius: 4px;
-            margin-right: 0.4rem;
-          }
-          .details {
+          .actions {
+            @media (min-width: 768px) {
+              opacity: 0;
+            }
             display: flex;
-            flex-direction: column;
+            transition: cubic-bezier(0.165, 0.84, 0.44, 1) 0.2s;
+            align-items: center;
+            opacity: 1;
+            padding-top: 0.3rem;
+            margin-right: 0.5rem;
+          }
+          span.wrapper {
+            display: flex;
             width: 50%;
-            span {
-              overflow: hidden;
-              text-overflow: ellipsis;
-              &:first-of-type {
-                font-weight: 500;
+            .img {
+              width: 40px;
+              height: 40px;
+              display: block;
+              background-repeat: no-repeat !important;
+              background-size: cover !important;
+              border-radius: 4px;
+              margin-right: 0.4rem;
+            }
+            .details {
+              display: flex;
+              flex-direction: column;
+              width: 50%;
+              span {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                &:first-of-type {
+                  font-weight: 500;
+                }
+                &:last-of-type {
+                  font-size: 0.8rem;
+                }
+                word-break: break-word;
+                white-space: nowrap;
               }
-              &:last-of-type {
-                font-size: 0.8rem;
-              }
-              word-break: break-word;
-              white-space: nowrap;
             }
           }
         }

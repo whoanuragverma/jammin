@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CacheService } from 'src/app/cache.service';
 import { DatabseService } from 'src/app/databse.service';
 
@@ -21,6 +15,7 @@ export class PlayerComponent implements OnInit {
   public isPlaying: boolean = false;
   public isBuffering: boolean = false;
   public duration: number = 0;
+  public data: any;
   public current: number = 0;
   public isFirstLoad: boolean = false;
   public playerProgress: string = '0%';
@@ -33,8 +28,23 @@ export class PlayerComponent implements OnInit {
   public volume: string = '100%';
   public album: string;
   public isMute: boolean = false;
+  public mediaQuality: string;
   constructor(private db: DatabseService, public cache: CacheService) {
     this.convertToPNG = this.convertToPNG.bind(this);
+    //@ts-ignore
+    switch (navigator.connection.effectiveType) {
+      case '4g':
+        this.mediaQuality = 'high';
+        break;
+      case '3g':
+        this.mediaQuality = 'mid';
+        break;
+      case '2g':
+        this.mediaQuality = 'low';
+        break;
+      default:
+        this.mediaQuality = 'mid';
+    }
   }
   shuffle() {
     this.isShuffle = !this.isShuffle;
@@ -123,7 +133,8 @@ export class PlayerComponent implements OnInit {
     }
     (await this.db.nowPlaying()).subscribe(async (data) => {
       //@ts-ignore
-      this.db.cached(data);
+      this.data = data;
+      this.db.cached(data, this.mediaQuality);
       this.icons = [];
       const size = ['50x50.jpg', '150x150.jpg', '500x500.jpg'];
       this.title = data?.title;
@@ -131,7 +142,10 @@ export class PlayerComponent implements OnInit {
       size.forEach((s) => this.convertToPNG(`${data?.url}${s}`));
       this.url = await this.cache.cacheFirst(data?.url + '150x150.jpg');
       this.artist = data?.artist;
-      this.media = await this.cache.cacheFirst(data?.media['low']);
+      this.media = await this.cache.cacheFirst(
+        data?.media['low'],
+        this.mediaQuality
+      );
     });
     this.isFirstLoad = true;
   }
@@ -141,10 +155,14 @@ export class PlayerComponent implements OnInit {
     });
     this.source.nativeElement.addEventListener('ended', () => {
       this.isPlaying = false;
+      this.db.addRecent(this.data);
       this.next(1);
     });
     this.source.nativeElement.addEventListener('play', () => {
       this.isPlaying = true;
+    });
+    this.source.nativeElement.addEventListener('pause', () => {
+      this.isPlaying = false;
     });
     this.source.nativeElement.addEventListener('waiting', () => {
       this.isBuffering = true;

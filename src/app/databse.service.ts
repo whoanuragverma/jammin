@@ -22,7 +22,63 @@ export class DatabseService {
   //       }
   //     });
   // }
-  async cached(data) {
+  async removeLiked(data) {
+    const uid = (await this.afAuth.currentUser).uid;
+    const identifier = btoa(data['media']['low']);
+    this.db
+      .collection('users')
+      .doc(uid)
+      .collection('liked')
+      .doc(identifier)
+      .delete();
+  }
+  async addRecent(data) {
+    const uid = (await this.afAuth.currentUser).uid;
+    const identifier = btoa(data['media']['low']);
+    this.db
+      .collection('users')
+      .doc(uid)
+      .collection('recents')
+      .doc(identifier)
+      .set(data, { merge: true });
+  }
+  async getLiked() {
+    const uid = (await this.afAuth.currentUser).uid;
+    return this.db
+      .collection('users')
+      .doc(uid)
+      .collection('liked')
+      .valueChanges();
+  }
+  async getRecent() {
+    const uid = (await this.afAuth.currentUser).uid;
+    return this.db
+      .collection('users')
+      .doc(uid)
+      .collection('recents')
+      .valueChanges();
+  }
+  async isLiked(data) {
+    const uid = (await this.afAuth.currentUser).uid;
+    const identifier = btoa(data?.media?.low);
+    return this.db
+      .collection('users')
+      .doc(uid)
+      .collection('liked')
+      .doc(identifier)
+      .get();
+  }
+  async addLiked(data) {
+    const uid = (await this.afAuth.currentUser).uid;
+    const identifier = btoa(data['media']['low']);
+    this.db
+      .collection('users')
+      .doc(uid)
+      .collection('liked')
+      .doc(identifier)
+      .set(data, { merge: true });
+  }
+  async cached(data, mediaQuality?) {
     const uid = (await this.afAuth.currentUser).uid;
     const identifier = btoa(data['media']['low']);
     const uuidL = localStorage.getItem('uuid');
@@ -37,7 +93,7 @@ export class DatabseService {
       .doc(uuid)
       .collection('0')
       .doc(identifier)
-      .set(data, { merge: true });
+      .set({ mediaQuality: mediaQuality, ...data }, { merge: true });
   }
   async getQueue() {
     const uid = (await this.afAuth.currentUser).uid;

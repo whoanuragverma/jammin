@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DatabseService } from 'src/app/databse.service';
 
 @Component({
   selector: 'liked',
@@ -6,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./liked.component.scss'],
 })
 export class LikedComponent implements OnInit {
-  constructor() {}
+  public likedSong: any;
+  constructor(private db: DatabseService) {}
 
-  ngOnInit(): void {}
+  async ngOnInit(): Promise<void> {
+    (await this.db.getLiked()).subscribe((data) => (this.likedSong = data));
+  }
 }

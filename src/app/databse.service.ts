@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { v4 } from 'uuid';
+import * as firebase from 'firebase/app';
 @Injectable({
   providedIn: 'root',
 })
@@ -89,6 +90,20 @@ export class DatabseService {
       .collection('nowPlaying')
       .doc('queue')
       .valueChanges();
+  }
+  async addToPL(plID, value) {
+    const uid = (await this.afAuth.currentUser).uid;
+    this.db
+      .collection(`users`)
+      .doc(uid)
+      .collection('playlist')
+      .doc(plID)
+      .collection('list')
+      .doc()
+      .set({
+        added: firebase.default.firestore.FieldValue.serverTimestamp(),
+        ...value,
+      });
   }
   async getPlaylist() {
     const uid = (await this.afAuth.currentUser).uid;
@@ -220,6 +235,29 @@ export class DatabseService {
           .set({ list: [...dataT.list, value] }, { merge: true });
       });
   }
+  async getSearch() {
+    const uid = (await this.afAuth.currentUser).uid;
+    return this.db
+      .collection('users')
+      .doc(uid)
+      .collection('search', (ref) => ref.orderBy('updated', 'desc'))
+      .valueChanges();
+  }
+  async setSearch(value) {
+    const uid = (await this.afAuth.currentUser).uid;
+    this.db
+      .collection('users')
+      .doc(uid)
+      .collection('search')
+      .doc(btoa(value['image']))
+      .set(
+        {
+          updated: firebase.default.firestore.FieldValue.serverTimestamp(),
+          ...value,
+        },
+        { merge: true }
+      );
+  }
   async playNext(value) {
     const uid = (await this.afAuth.currentUser).uid;
     this.db
@@ -256,6 +294,7 @@ export class DatabseService {
           .add({
             title: `My Playlist #${num + 1}`,
             public: false,
+            created: firebase.default.firestore.FieldValue.serverTimestamp(),
           });
       });
   }

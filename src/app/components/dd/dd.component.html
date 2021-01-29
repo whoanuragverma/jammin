@@ -1,11 +1,29 @@
 <div class="dd1" [@openClose]="isOpen ? 'open' : 'closed'">
-  <div (click)="playNext()">
-    <li>Play Next</li>
+  <div [@plAnim]="plMenu ? 'left' : 'right'">
+    <div (click)="playNext()">
+      <li>Play Next</li>
+    </div>
+    <div (click)="addToQueue()">
+      <li>Add to Queue</li>
+    </div>
+    <div (click)="plMenu = !plMenu">
+      <li>Add to Playlist</li>
+    </div>
   </div>
-  <div (click)="addToQueue()">
-    <li>Add to Queue</li>
-  </div>
-  <div>
-    <li>Add to Playlist</li>
+  <div [@plAnim]="plMenu ? 'left2' : 'right2'" class="overflowMenu">
+    <div (click)="plMenu = !plMenu"><li>Back</li></div>
+    <div>
+      <li (click)="newPL()" style="border-bottom: 1px solid #b7b7b7">
+        New Playlist
+      </li>
+    </div>
+    <div class="scroll">
+      <div *ngFor="let p of plList | async">
+        <li (click)="addToPL(p.id)">{{ p.title }}</li>
+      </div>
+      <div>
+        <li>No playlist yet!</li>
+      </div>
+    </div>
   </div>
 </div>

@@ -13,8 +13,8 @@
     />
   </div>
   <div class="account" (click)="toggle()">
-    <img [src]="data.photoURL" [alt]="data.displayName" />
-    {{ data.displayName }}
+    <img [src]="data?.photoURL" [alt]="data?.displayName" />
+    {{ data?.displayName }}
     <img
       src="../../../assets/down.svg"
       class="dropdown-icon"
@@ -118,7 +118,7 @@
       Library
     </div>
     <div [routerLink]="['/account']" [routerLinkActive]="['text-bold']">
-      <img [src]="data.photoURL" [alt]="data.displayName" />
+      <img [src]="data?.photoURL" [alt]="data?.displayName" />
       Account
     </div>
   </div>

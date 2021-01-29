@@ -7,9 +7,11 @@ import { ApiService } from './api.service';
 })
 export class PlayDirective {
   @Input() url: string;
+  @Input() origin: any;
   constructor(private api: ApiService, private db: DatabseService) {}
   @HostListener('click')
   async onClick() {
+    if (this.origin) this.db.setSearch(this.origin);
     if (this.url.includes('song')) {
       this.api.search(this.url).subscribe((data) => {
         this.db.newQueue([data[0]]);

@@ -27,7 +27,15 @@ export class DatabseService {
       .doc(uid)
       .collection('recents')
       .doc(identifier)
-      .set(data, { merge: true });
+      .set(
+        {
+          lastStream: firebase.default.firestore.FieldValue.serverTimestamp(),
+          stream: firebase.default.firestore.FieldValue.arrayUnion(new Date()),
+          ...data,
+          count: firebase.default.firestore.FieldValue.increment(1),
+        },
+        { merge: true }
+      );
   }
   async getLiked() {
     const uid = (await this.afAuth.currentUser).uid;
@@ -42,7 +50,7 @@ export class DatabseService {
     return this.db
       .collection('users')
       .doc(uid)
-      .collection('recents')
+      .collection('recents', (ref) => ref.orderBy('lastStream', 'desc'))
       .valueChanges();
   }
   async isLiked(data) {

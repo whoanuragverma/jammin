@@ -6,9 +6,18 @@ svg #heart {
 svg #main-circ {
   transform-origin: 29.5px 29.5px;
 }
-
+span {
+  position: relative;
+}
+span > label > svg {
+  width: 2.3rem;
+  height: 2.3rem;
+}
 .checkbox {
-  display: none;
+  position: absolute;
+  opacity: 0;
+  bottom: 0.8rem;
+  left: 0.5rem;
 }
 
 .checkbox:checked + label svg #heart {

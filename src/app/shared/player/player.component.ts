@@ -1,3 +1,10 @@
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CacheService } from 'src/app/cache.service';
 import { DatabseService } from 'src/app/databse.service';
@@ -7,15 +14,33 @@ import { DatabseService } from 'src/app/databse.service';
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  animations: [
+    trigger('openPlayer', [
+      state('close', style({})),
+      state(
+        'open',
+        style({
+          height: '100vh',
+          top: '0px',
+          opacity: 1,
+          zIndex: 100,
+        })
+      ),
+      transition('* => *', [animate('0.25s ease-in-out')]),
+    ]),
+  ],
 })
 export class PlayerComponent implements OnInit {
   public isLiked: boolean = false;
   public isShuffle: boolean = false;
+  public isFullScreen: boolean = false;
   public isRepeat: boolean = false;
   public isPlaying: boolean = false;
   public isBuffering: boolean = false;
   public duration: number = 0;
   public data: any;
+  public queue: any;
+  public prominentColor: string = '';
   public current: number = 0;
   public isFirstLoad: boolean = false;
   public playerProgress: string = '0%';
@@ -82,7 +107,7 @@ export class PlayerComponent implements OnInit {
             sizes: url.split('-').splice(-1)[0].split('.jpg')[0],
             type: 'image/png',
           });
-          if (this.icons.length == 3)
+          if (this.icons.length == 3) {
             if ('mediaSession' in navigator) {
               //@ts-ignore
               navigator.mediaSession.metadata = new MediaMetaData$({
@@ -92,6 +117,7 @@ export class PlayerComponent implements OnInit {
                 artwork: this.icons,
               });
             }
+          }
         },
         'image/png',
         1
@@ -121,6 +147,7 @@ export class PlayerComponent implements OnInit {
       (x / width) * this.source.nativeElement.duration;
   }
   async ngOnInit(): Promise<void> {
+    (await this.db.getQueue()).subscribe((data) => (this.queue = data));
     try {
       (navigator as any).mediaSession.setActionHandler('previoustrack', () =>
         this.next(-1)
@@ -140,7 +167,7 @@ export class PlayerComponent implements OnInit {
       this.title = data?.title;
       this.album = data?.album;
       size.forEach((s) => this.convertToPNG(`${data?.url}${s}`));
-      this.url = await this.cache.cacheFirst(data?.url + '150x150.jpg');
+      this.url = await this.cache.cacheFirst(data?.url + '500x500.jpg');
       this.artist = data?.artist;
       this.media = await this.cache.cacheFirst(
         data?.media['low'],

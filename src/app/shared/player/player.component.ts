@@ -42,7 +42,6 @@ export class PlayerComponent implements OnInit {
   public queue: any;
   public prominentColor: string = '';
   public current: number = 0;
-  public isFirstLoad: boolean = false;
   public playerProgress: string = '0%';
   private icons: Array<any> = [];
   @ViewChild('source') source;
@@ -174,7 +173,6 @@ export class PlayerComponent implements OnInit {
         this.mediaQuality
       );
     });
-    this.isFirstLoad = true;
   }
   ngAfterViewInit() {
     this.source.nativeElement.addEventListener('loadedmetadata', () => {
@@ -187,6 +185,7 @@ export class PlayerComponent implements OnInit {
     });
     this.source.nativeElement.addEventListener('play', () => {
       this.isPlaying = true;
+      this.source.nativeElement.autoplay = true;
     });
     this.source.nativeElement.addEventListener('pause', () => {
       this.isPlaying = false;

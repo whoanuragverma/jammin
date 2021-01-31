@@ -119,19 +119,7 @@
           [style.left]="playerProgress"
           draggable="true"
         ></span>
-        <audio
-          #source
-          [src]="media | safeurl"
-          preload="metadata"
-          *ngIf="!isFirstLoad"
-        ></audio>
-        <audio
-          #source
-          [src]="media | safeurl"
-          preload="metadata"
-          autoplay
-          *ngIf="isFirstLoad"
-        ></audio>
+        <audio #source [src]="media | safeurl" preload="metadata"></audio>
       </span>
       <span class="Etime" title="Duration">{{ duration | time }}</span>
     </span>

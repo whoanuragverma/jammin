@@ -342,6 +342,7 @@ div.fullscreen_player {
     padding: 0.5rem;
     @media (max-width: 768px) {
       margin-top: 3rem;
+      padding-right: 0;
     }
     .details {
       margin: 0.5rem;
@@ -459,6 +460,7 @@ div.fullscreen_player {
   }
   div.lyrics__queue {
     width: 60%;
+    height: 88%;
     @media (max-width: 768px) {
       flex-direction: column;
       display: flex;
@@ -480,6 +482,35 @@ div.fullscreen_player {
       word-break: break-word;
       @media (max-width: 768px) {
         width: 85%;
+      }
+      .contents {
+        margin-top: 1rem;
+        width: 100%;
+        & > span {
+          width: 100%;
+        }
+      }
+      .headerTitle {
+        width: 100%;
+        display: flex;
+        @media (max-width: 768px) {
+          justify-content: space-around;
+        }
+        & > span {
+          padding: 0 1.5rem;
+          cursor: pointer;
+          display: flex;
+          @media (max-width: 768px) {
+            padding: 0;
+          }
+          &.active {
+            font-weight: 500;
+          }
+          align-items: center;
+          svg {
+            margin-right: 0.4rem;
+          }
+        }
       }
     }
   }

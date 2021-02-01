@@ -47,6 +47,7 @@ export class PlayerComponent implements OnInit {
   @ViewChild('source') source;
   public url: string;
   public media: string;
+  public active: number = 1;
   public title: string;
   public artist: string;
   public volume: string = '100%';
@@ -139,9 +140,14 @@ export class PlayerComponent implements OnInit {
   }
   dragEvent(event) {
     const { left } = event.target.getBoundingClientRect();
-    const width = document.querySelector('#progress').clientWidth;
+    let width;
+    if (this.isFullScreen)
+      width = document.querySelector('#progressFULL').clientWidth;
+    else width = document.querySelector('#progress').clientWidth;
     const x = event.clientX - left;
     this.playerProgress = `${(x / width) * 100}%`;
+    console.log((x / width) * this.source.nativeElement.duration);
+
     this.source.nativeElement.currentTime =
       (x / width) * this.source.nativeElement.duration;
   }

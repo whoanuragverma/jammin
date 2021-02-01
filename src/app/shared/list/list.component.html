@@ -1,0 +1,24 @@
+<div class="list_queue">
+  <span class="title">Queue</span>
+  <span class="title small">Now Playing</span>
+  <ng-container *ngFor="let d of data; let i = index">
+    <span class="queue__item" *ngIf="i >= idx" (click)="db.nextSong(i - idx)">
+      <span class="idx">{{ i - idx + 1 }}</span>
+      <span
+        class="placeholder"
+        [style.backgroundImage]="'url(' + urls[i] + ')'"
+      ></span>
+      <span class="details">
+        <span class="name">{{ d.title | titlePipe }}</span>
+        <span class="artist">
+          <ng-container *ngFor="let art of d.artists; let j = index">
+            <span [routerLink]="[art.url]" class="comma" *ngIf="j < 3">{{
+              art.name | titlePipe
+            }}</span>
+          </ng-container>
+        </span>
+      </span>
+      {{ d.duration | time }}
+    </span>
+  </ng-container>
+</div>

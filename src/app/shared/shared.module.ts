@@ -10,6 +10,7 @@ import { TimePipe } from './time.pipe';
 import { SafeurlPipe } from './safeurl.pipe';
 import { TitlePipe } from './title.pipe';
 import { LikeComponent } from './like/like.component';
+import { ListComponent } from './list/list.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { LikeComponent } from './like/like.component';
     SafeurlPipe,
     TitlePipe,
     LikeComponent,
+    ListComponent,
   ],
   exports: [NavComponent, SidenavComponent, PlayerComponent, LikeComponent],
   imports: [CommonModule, RouterModule],

@@ -1,0 +1,36 @@
+div.list_queue {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  .placeholder {
+    display: block;
+    width: 50px;
+    height: 50px;
+  }
+  .title {
+    font-weight: 500;
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    &.small {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #979797;
+    }
+  }
+  span.queue__item {
+    display: flex;
+    align-items: center;
+    .details {
+      display: flex;
+      flex-direction: column;
+      .name {
+        font-weight: 500;
+      }
+      .artist {
+        font-size: 0.8rem;
+      }
+    }
+    padding: 0.7rem 0;
+  }
+}

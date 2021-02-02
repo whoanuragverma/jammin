@@ -20,7 +20,7 @@ import { DatabseService } from 'src/app/databse.service';
       state(
         'open',
         style({
-          height: '100vh',
+          minHeight: '100vh',
           top: '0px',
           opacity: 1,
           zIndex: 100,
@@ -32,7 +32,7 @@ import { DatabseService } from 'src/app/databse.service';
 })
 export class PlayerComponent implements OnInit {
   public isLiked: boolean = false;
-  public isShuffle: boolean = false;
+  public isShuffle: boolean = true;
   public isFullScreen: boolean = false;
   public isRepeat: boolean = false;
   public isPlaying: boolean = false;
@@ -40,14 +40,13 @@ export class PlayerComponent implements OnInit {
   public duration: number = 0;
   public data: any;
   public queue: any;
-  public prominentColor: string = '';
   public current: number = 0;
   public playerProgress: string = '0%';
   private icons: Array<any> = [];
   @ViewChild('source') source;
   public url: string;
   public media: string;
-  public active: number = 1;
+  public active: number = 2;
   public title: string;
   public artist: string;
   public volume: string = '100%';
@@ -72,7 +71,8 @@ export class PlayerComponent implements OnInit {
     }
   }
   shuffle() {
-    this.isShuffle = !this.isShuffle;
+    this.isShuffle = true;
+    this.db.shuffle();
   }
   repeat() {
     this.isRepeat = !this.isRepeat;

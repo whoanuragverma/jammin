@@ -6,14 +6,19 @@ div.list_queue {
   .placeholder {
     display: block;
     width: 50px;
+    background-image: url("../../../assets/loading.png");
     height: 50px;
+    margin-right: 0.8rem;
+    border-radius: 5px;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
   }
   .title {
     font-weight: 500;
     font-size: 1.5rem;
-    margin: 1rem 0;
+    margin: 0.7rem 0;
     &.small {
-      margin: 0;
+      margin: 0.5rem 0;
       font-size: 0.9rem;
       color: #979797;
     }
@@ -21,9 +26,20 @@ div.list_queue {
   span.queue__item {
     display: flex;
     align-items: center;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.4s;
+    &:hover {
+      background-color: #cccccc;
+    }
+    .duration {
+      font-size: 0.8rem;
+    }
     .details {
       display: flex;
       flex-direction: column;
+      width: 75%;
+      @media (max-width: 768px) {
+        width: 54%;
+      }
       .name {
         font-weight: 500;
       }
@@ -31,6 +47,19 @@ div.list_queue {
         font-size: 0.8rem;
       }
     }
-    padding: 0.7rem 0;
+    .idx {
+      margin-right: 1rem;
+      margin-left: 0.3rem;
+      width: 1.4rem;
+    }
+    border-radius: 5px;
+    padding: 0.3rem 0;
+  }
+}
+body.dark {
+  span.queue__item {
+    &:hover {
+      background-color: #656565;
+    }
   }
 }

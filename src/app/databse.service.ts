@@ -8,10 +8,48 @@ import * as firebase from 'firebase/app';
 })
 export class DatabseService {
   constructor(private afAuth: AngularFireAuth, private db: AngularFirestore) {}
-
+  private shuffleHelper(array) {
+    let counter = array.length;
+    while (counter > 0) {
+      let index = Math.floor(Math.random() * counter);
+      counter--;
+      let temp = array[counter];
+      array[counter] = array[index];
+      array[index] = temp;
+    }
+    return array;
+  }
+  async shuffle() {
+    const uid = (await this.afAuth.currentUser).uid;
+    this.db
+      .collection('users')
+      .doc(uid)
+      .collection('nowPlaying')
+      .doc('queue')
+      .get()
+      .subscribe((data) => {
+        const dataT = data.data();
+        const idx = dataT['index'];
+        let originalUnshuffled = dataT['list'].slice(0, idx + 1);
+        let nextUp = dataT['list'].slice(idx + 1);
+        nextUp = this.shuffleHelper(nextUp);
+        const newQueue = [...originalUnshuffled, ...nextUp];
+        this.db
+          .collection('users')
+          .doc(uid)
+          .collection('nowPlaying')
+          .doc('queue')
+          .set({ list: newQueue }, { merge: true });
+      });
+  }
   async removeLiked(data) {
     const uid = (await this.afAuth.currentUser).uid;
-    const identifier = btoa(data['media']['low']);
+    const identifier = btoa(
+      data['media']['low']
+        .split('https://cdn.jammin.workers.dev/')
+        .slice(-1)
+        .pop()
+    );
     this.db
       .collection('users')
       .doc(uid)
@@ -55,7 +93,12 @@ export class DatabseService {
   }
   async isLiked(data) {
     const uid = (await this.afAuth.currentUser).uid;
-    const identifier = btoa(data?.media?.low);
+    const identifier = btoa(
+      data['media']['low']
+        .split('https://cdn.jammin.workers.dev/')
+        .slice(-1)
+        .pop()
+    );
     return this.db
       .collection('users')
       .doc(uid)
@@ -65,7 +108,18 @@ export class DatabseService {
   }
   async addLiked(data) {
     const uid = (await this.afAuth.currentUser).uid;
-    const identifier = btoa(data['media']['low']);
+    console.log(
+      data['media']['low']
+        .split('https://cdn.jammin.workers.dev/')
+        .slice(-1)
+        .pop()
+    );
+    const identifier = btoa(
+      data['media']['low']
+        .split('https://cdn.jammin.workers.dev/')
+        .slice(-1)
+        .pop()
+    );
     this.db
       .collection('users')
       .doc(uid)

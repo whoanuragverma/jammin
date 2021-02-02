@@ -2,12 +2,18 @@
   <span class="title">Queue</span>
   <span class="title small">Now Playing</span>
   <ng-container *ngFor="let d of data; let i = index">
-    <span class="queue__item" *ngIf="i >= idx" (click)="db.nextSong(i - idx)">
+    <span class="title small" *ngIf="i == idx + 1">Next Up</span>
+    <span class="queue__item" *ngIf="i >= idx">
       <span class="idx">{{ i - idx + 1 }}</span>
       <span
+        (click)="db.nextSong(i - idx)"
         class="placeholder"
-        [style.backgroundImage]="'url(' + urls[i] + ')'"
+        *ngIf="urls[d.image['150x150']] != undefined; else blank"
+        [style.backgroundImage]="'url(' + urls[d.image['150x150']] + ')'"
       ></span>
+      <ng-template #blank>
+        <span (click)="db.nextSong(i - idx)" class="placeholder"></span
+      ></ng-template>
       <span class="details">
         <span class="name">{{ d.title | titlePipe }}</span>
         <span class="artist">
@@ -18,7 +24,22 @@
           </ng-container>
         </span>
       </span>
-      {{ d.duration | time }}
-    </span>
+      <span class="duration"> {{ d.duration | time }}</span>
+      <span class="more"
+        ><svg
+          viewBox="0 0 24 24"
+          width="24"
+          height="24"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="css-i6dzq1"
+        >
+          <circle cx="12" cy="12" r="1"></circle>
+          <circle cx="12" cy="5" r="1"></circle>
+          <circle cx="12" cy="19" r="1"></circle></svg></span
+    ></span>
   </ng-container>
 </div>

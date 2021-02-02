@@ -1,4 +1,10 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  SimpleChange,
+  ViewEncapsulation,
+} from '@angular/core';
 import { CacheService } from 'src/app/cache.service';
 import { DatabseService } from 'src/app/databse.service';
 
@@ -11,21 +17,18 @@ import { DatabseService } from 'src/app/databse.service';
 export class ListComponent implements OnInit {
   @Input() data: any;
   @Input() idx: any;
-  public urls = [];
+  public urls = {};
   constructor(private cache: CacheService, public db: DatabseService) {}
 
   async getImg() {
     this.data?.forEach(async (element) => {
-      this.urls.push(
-        await this.cache.cacheFirst(
-          `https://cdn.jammin.workers.dev/${element.image['50x50']}`
-        )
+      this.urls[element.image['150x150']] = await this.cache.cacheFirst(
+        `https://cdn.jammin.workers.dev/${element.image['150x150']}`
       );
     });
   }
   ngOnInit(): void {}
   ngOnChanges() {
-    this.urls = [];
     this.getImg();
   }
 }

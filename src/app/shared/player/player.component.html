@@ -1,5 +1,5 @@
 <div class="playerMain">
-  <div class="nowPlaying">
+  <div class="nowPlaying" *ngIf="title; else notLoaded">
     <img [src]="url | safeurl" [alt]="title" (click)="isFullScreen = true" />
     <span class="title">
       <span class="name">{{ title | titlePipe }}</span>
@@ -16,6 +16,15 @@
       <like [key]="data"></like>
     </span>
   </div>
+  <ng-template #notLoaded>
+    <div class="nowPlaying">
+      <span class="title">
+        <span class="name">
+          Music you're listening to right now appears here
+        </span>
+      </span>
+    </div>
+  </ng-template>
   <div class="controls">
     <span class="buttons">
       <span title="Shuffle" [class.active]="isShuffle" (click)="shuffle()"
@@ -503,9 +512,62 @@
           <app-list [data]="queue?.list" [idx]="queue?.index"></app-list>
         </span>
         <ng-template #sBlock>
-          <span class="about" *ngIf="active === 2; else tBlock">{{
-            queue?.list[queue.index] | json
-          }}</span>
+          <span class="about" *ngIf="active === 2; else tBlock">
+            <span class="title">About</span>
+            <span class="details">
+              <span *ngIf="queue?.list[queue.index]?.title">
+                <span class="head">Song Name: </span>
+                <span class="body">{{ queue?.list[queue.index]?.title }}</span>
+              </span>
+              <span *ngIf="queue?.list[queue.index]?.album">
+                <span class="head">Album: </span>
+                <span
+                  class="body"
+                  [routerLink]="['/', queue?.list[queue.index]?.album_url]"
+                  >{{ queue?.list[queue.index]?.album }}</span
+                >
+              </span>
+              <span *ngIf="queue?.list[queue.index]?.label">
+                <span class="head">Label: </span>
+                <span class="body">{{ queue?.list[queue.index]?.label }}</span>
+              </span>
+              <span *ngIf="queue?.list[queue.index]?.duration">
+                <span class="head">Duration: </span>
+                <span class="body">{{
+                  queue?.list[queue.index]?.duration | time
+                }}</span>
+              </span>
+              <span *ngIf="queue?.list[queue.index]?.copyright">
+                <span class="head">Licensed from: </span>
+                <span class="body">{{
+                  queue?.list[queue.index]?.copyright
+                }}</span>
+              </span>
+              <span *ngIf="queue?.list[queue.index]?.desc">
+                <span class="head">Description: </span>
+                <span class="body">{{ queue?.list[queue.index]?.desc }}</span>
+              </span>
+              <span *ngIf="queue?.list[queue.index]?.language">
+                <span class="head">Language: </span>
+                <span class="body">{{
+                  queue?.list[queue.index]?.language | titlecase
+                }}</span>
+              </span>
+            </span>
+            <span class="title">Artists </span>
+            <ng-container *ngFor="let art of queue?.list[queue.index].artists">
+              <span [routerLink]="['/', art.url]">
+                <img
+                  [src]="
+                    'https://cdn.jammin.workers.dev/' + art.image['150x150']
+                  "
+                  [alt]="art.name"
+                />
+                <span>{{ art.name }}</span>
+              </span>
+            </ng-container>
+          </span>
+
           <ng-template #tBlock>
             <span class="about" *ngIf="active === 3">Coming Soon</span>
           </ng-template>

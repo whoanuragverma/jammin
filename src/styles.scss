@@ -12,6 +12,9 @@ body {
     overflow-y: auto !important;
   }
 }
+* {
+  -webkit-tap-highlight-color: transparent;
+}
 ::-webkit-scrollbar {
   width: 0.3rem;
 }

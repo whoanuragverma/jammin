@@ -220,6 +220,27 @@ div.playerMain {
     }
   }
 }
+.about {
+  display: flex;
+  flex-direction: column;
+  .title {
+    font-weight: 500;
+    font-size: 1.5rem;
+    margin: 0.7rem 0;
+  }
+  .details {
+    display: flex;
+    flex-direction: column;
+    span.head {
+      font-weight: 500;
+      font-size: 1rem;
+    }
+    span.body {
+      font-weight: 400;
+      color: #6f6f6f;
+    }
+  }
+}
 body.dark {
   div.playerMain {
     background-color: #333333;
@@ -519,8 +540,7 @@ body.dark {
   div.fullscreen_player {
     background-color: #121212;
   }
-  div.padded,
-  div.lyrics__queue {
+  div.padded {
     background-color: #333333 !important;
   }
 }

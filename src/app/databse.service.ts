@@ -94,10 +94,7 @@ export class DatabseService {
   async isLiked(data) {
     const uid = (await this.afAuth.currentUser).uid;
     const identifier = btoa(
-      data['media']['low']
-        .split('https://cdn.jammin.workers.dev/')
-        .slice(-1)
-        .pop()
+      data?.media?.low.split('https://cdn.jammin.workers.dev/').slice(-1).pop()
     );
     return this.db
       .collection('users')
@@ -109,10 +106,7 @@ export class DatabseService {
   async addLiked(data) {
     const uid = (await this.afAuth.currentUser).uid;
     console.log(
-      data['media']['low']
-        .split('https://cdn.jammin.workers.dev/')
-        .slice(-1)
-        .pop()
+      data?.media?.low.split('https://cdn.jammin.workers.dev/').slice(-1).pop()
     );
     const identifier = btoa(
       data['media']['low']

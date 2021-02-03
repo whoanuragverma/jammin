@@ -46,7 +46,7 @@ export class PlayerComponent implements OnInit {
   @ViewChild('source') source;
   public url: string;
   public media: string;
-  public active: number = 2;
+  public active: number = 1;
   public title: string;
   public artist: string;
   public volume: string = '100%';

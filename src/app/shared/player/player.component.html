@@ -555,17 +555,24 @@
               </span>
             </span>
             <span class="title">Artists </span>
-            <ng-container *ngFor="let art of queue?.list[queue.index].artists">
-              <span [routerLink]="['/', art.url]">
-                <img
-                  [src]="
-                    'https://cdn.jammin.workers.dev/' + art.image['150x150']
-                  "
-                  [alt]="art.name"
-                />
-                <span>{{ art.name }}</span>
-              </span>
-            </ng-container>
+            <span class="artists">
+              <ng-container
+                *ngFor="let art of queue?.list[queue.index].artists"
+              >
+                <span
+                  [routerLink]="['/', art.url]"
+                  *ngIf="art.image['150x150']"
+                >
+                  <img
+                    [src]="
+                      'https://cdn.jammin.workers.dev/' + art.image['150x150']
+                    "
+                    [alt]="art.name"
+                  />
+                  <span>{{ art.name }}</span>
+                </span>
+              </ng-container>
+            </span>
           </span>
 
           <ng-template #tBlock>

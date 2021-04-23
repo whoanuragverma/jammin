@@ -45,10 +45,7 @@ export class DatabseService {
   async removeLiked(data) {
     const uid = (await this.afAuth.currentUser).uid;
     const identifier = btoa(
-      data['media']['low']
-        .split('https://cdn.jammin.workers.dev/')
-        .slice(-1)
-        .pop()
+      data['media']['low'].split('https://cdn.jammin.ml/').slice(-1).pop()
     );
     this.db
       .collection('users')
@@ -94,7 +91,7 @@ export class DatabseService {
   async isLiked(data) {
     const uid = (await this.afAuth.currentUser).uid;
     const identifier = btoa(
-      data?.media?.low.split('https://cdn.jammin.workers.dev/').slice(-1).pop()
+      data?.media?.low.split('https://cdn.jammin.ml/').slice(-1).pop()
     );
     return this.db
       .collection('users')
@@ -106,13 +103,10 @@ export class DatabseService {
   async addLiked(data) {
     const uid = (await this.afAuth.currentUser).uid;
     console.log(
-      data?.media?.low.split('https://cdn.jammin.workers.dev/').slice(-1).pop()
+      data?.media?.low.split('https://cdn.jammin.ml/').slice(-1).pop()
     );
     const identifier = btoa(
-      data['media']['low']
-        .split('https://cdn.jammin.workers.dev/')
-        .slice(-1)
-        .pop()
+      data['media']['low'].split('https://cdn.jammin.ml/').slice(-1).pop()
     );
     this.db
       .collection('users')
@@ -243,9 +237,9 @@ export class DatabseService {
     temp.forEach((el) => artist.push(JSON.parse(el)));
     let media = {};
     Object.keys(data?.media).forEach((element) => {
-      media[element] = `https://cdn.jammin.workers.dev/${data?.media[element]}`;
+      media[element] = `https://cdn.jammin.ml/${data?.media[element]}`;
     });
-    const url = `https://cdn.jammin.workers.dev/${
+    const url = `https://cdn.jammin.ml/${
       data?.image['50x50'].split('50x50.jpg')[0]
     }`;
     this.setNowPlaying({

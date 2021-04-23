@@ -23,7 +23,7 @@ export class ListComponent implements OnInit {
   async process() {
     this.data?.forEach(async (element) => {
       this.urls[element.image['150x150']] = await this.cache.cacheFirst(
-        `https://cdn.jammin.workers.dev/${element.image['150x150']}`
+        `https://cdn.jammin.ml/${element.image['150x150']}`
       );
     });
     for (let i = 0; i < this.data?.length; i++) {

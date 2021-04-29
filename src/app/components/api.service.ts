@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ApiService {
-  private base = 'https://api.jammin.ml';
+  private base = 'https://api.jammin.workers.dev';
   constructor(private http: HttpClient) {}
   autoComplete(query: string) {
     return this.http.get(`${this.base}/autocomplete?query=${query}`);
